@@ -87,6 +87,13 @@ hsl *newHSLTuple(const float h, const float s, const float l);
 rgb *hex2RGB(hex *hex);
 
 /**
+ * @brief Prints Hex value
+ * 
+ * @param hexColor {hex} : hex to print
+ */
+void printHexValue(hex *hexColor);
+
+/**
  * @brief Prints RGB values
  * 
  * @param rgbColor {rgb} : rgb to print
