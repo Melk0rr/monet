@@ -46,4 +46,14 @@ hex *newHexColor(const unsigned char *hexStr);
  */
 rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned char b);
 
+/**
+ * @brief Creates a new HSL tuple based on the given values
+ * 
+ * @param h {const float} : hue value
+ * @param s {const float} : saturation value
+ * @param l {const float} : lightness value
+ * @return hsl* {hsl} : new hsl tuple
+ */
+hsl *newHSLTuple(const float h, const float s, const float l);
+
 #endif
