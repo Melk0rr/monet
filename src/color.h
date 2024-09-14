@@ -1,6 +1,7 @@
 #ifndef __COLOR__H__
 #define __COLOR__H__
 
+#include "utils.h"
 
 // #########################################################
 // color struct definitions
@@ -59,6 +60,15 @@ hex *newHexColor(const unsigned char *hexStr);
 rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned char b);
 
 /**
+ * @brief Cheks if the given value is a valid RGB value
+ * 
+ * @param value {const unsigned char} : value to check
+ * @return true {bool} : the value is valid
+ * @return false {bool} : the value is not valid
+ */
+bool checkRGBValue(const unsigned char value);
+
+/**
  * @brief Creates a new HSL tuple based on the given values
  * 
  * @param h {const float} : hue value
@@ -67,5 +77,13 @@ rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned ch
  * @return hsl* {hsl} : new hsl tuple
  */
 hsl *newHSLTuple(const float h, const float s, const float l);
+
+/**
+ * @brief Converts a hex color to 
+ * 
+ * @param hex {hex} : hex color to convert
+ * @return rgb* {rgb} : converted RGB color
+ */
+rgb *hex2RGB(hex *hex);
 
 #endif
