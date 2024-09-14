@@ -69,6 +69,24 @@ rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned ch
 bool checkRGBValue(const unsigned char value);
 
 /**
+ * @brief Checks if the given hue value is valid
+ * 
+ * @param value {float} : value to check
+ * @return true {bool} : value is valid
+ * @return false {bool} : value is not valid
+ */
+bool checkHueValue(const float value);
+
+/**
+ * @brief Checks if the given Saturation / Lightness value is valid
+ * 
+ * @param value {float} : value to check
+ * @return true {bool} : value is valid
+ * @return false {bool} : value is not valid
+ */
+bool checkSLValue(const float value);
+
+/**
  * @brief Creates a new HSL tuple based on the given values
  * 
  * @param h {const float} : hue value
