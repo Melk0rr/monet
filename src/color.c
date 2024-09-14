@@ -133,8 +133,6 @@ hex *rgb2Hex(rgb *rgb)
 // A function to get HSL values from RGB
 hsl *rgb2HSL(rgb *rgb)
 {
-  hsl *fromRGB = malloc(sizeof(*fromRGB));
-  
   float *perc = rgbPercentages(rgb);
 
   float redPerc = perc[0];
@@ -149,7 +147,7 @@ hsl *rgb2HSL(rgb *rgb)
 
   // Saturation
   float s;
-  if (minRGB = maxRGB)
+  if (minRGB == maxRGB)
   {
     s = 0;
 
@@ -184,9 +182,7 @@ hsl *rgb2HSL(rgb *rgb)
 
   }
 
-  return (h, round(s, 2), round(l, 2))
-
-  return fromRGB;
+  return newHSLTuple(h, s, l);
 }
 
 // Prints Hex color value : see color.h
