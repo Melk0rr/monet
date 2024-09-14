@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// A function to create a new hex color : see color.h
 hex *newHexColor(const unsigned char *hexStr)
 {
   hex *newColor = malloc(sizeof(*newColor));
@@ -21,7 +22,7 @@ hex *newHexColor(const unsigned char *hexStr)
     return NULL;
   }
 
-  // newColor->code = malloc(sizeof());
+  // If the hex string contains '#' : skip it
   bool skipFirstChar = false;
   int i = 0;
 
@@ -38,4 +39,39 @@ hex *newHexColor(const unsigned char *hexStr)
   newColor->code[hexLen - (skipFirstChar ? 1 : 0)] = '\0';
 
   return newColor;
+}
+
+// A function to create a new RGB color : see color.h
+rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned char b)
+{
+  rgb *newColor = malloc(sizeof(*newColor));
+
+  if (!checkRGBValue(r) || !checkRGBValue(g) || !checkRGBValue(b))
+  {
+    fprintf(stderr, "newRGBColor::Invalid RGB value provided !");
+    return NULL;
+  }
+  
+  newColor->red = r;
+  newColor->green = g;
+  newColor->blue = b;
+
+  return newColor;
+}
+
+// A function to check if the given value is a valid RGB value : see color.h
+bool checkRGBValue(const unsigned char value)
+{
+  bool check = true;
+  if (value > 255 || value < 0)
+  {
+    check = false;
+  }
+  
+  return check;
+}
+
+rgb *hex2RGB(hex *hex)
+{
+
 }
