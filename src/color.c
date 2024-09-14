@@ -215,7 +215,6 @@ rgb *hsl2RGB(hsl *hsl)
   for (int i = 0; i < 3; i++)
   {
     float tmpV = tmpArr[i];
-    printf("%f\n", tmpV);
     
     if (tmpV < 0)
     {
