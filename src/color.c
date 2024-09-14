@@ -77,3 +77,9 @@ rgb *hex2RGB(hex *hex)
   unsigned long hexValue = strtoul((char *)hex->code, NULL, 16);
   return newRGBColor((hexValue >> 16) & 0xFF, (hexValue >> 8) & 0xFF, hexValue & 0xFF);
 }
+
+// Pritns RGB values : see color.h
+void printRGBValues(rgb *rgbColor)
+{
+  printf("(%d,%d,%d)", rgbColor->red, rgbColor->green, rgbColor->blue);
+}

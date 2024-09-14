@@ -91,6 +91,6 @@ rgb *hex2RGB(hex *hex);
  * 
  * @param rgbColor {rgb} : rgb to print
  */
-void pintRGBValues(rgb rgbColor);
+void printRGBValues(rgb *rgbColor);
 
 #endif
