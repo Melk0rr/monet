@@ -86,4 +86,11 @@ hsl *newHSLTuple(const float h, const float s, const float l);
  */
 rgb *hex2RGB(hex *hex);
 
+/**
+ * @brief Prints RGB values
+ * 
+ * @param rgbColor {rgb} : rgb to print
+ */
+void pintRGBValues(rgb rgbColor);
+
 #endif
