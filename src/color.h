@@ -28,6 +28,14 @@ typedef struct hsl
 // #########################################################
 // Prototypes
 
+/**
+ * @brief Creates a new hex color based on the given string
+ * 
+ * @param hexStr {const unsigned char} : hex falue with or without "#"
+ * @return hex* :ew hex color
+ */
+hex *newHexColor(const unsigned char *hexStr);
+
 
 
 
