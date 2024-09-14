@@ -78,8 +78,14 @@ rgb *hex2RGB(hex *hex)
   return newRGBColor((hexValue >> 16) & 0xFF, (hexValue >> 8) & 0xFF, hexValue & 0xFF);
 }
 
-// Pritns RGB values : see color.h
+// Prints Hex color value : see color.h
+void printHexValue(hex *hexColor)
+{
+  printf("#%s\n", hexColor->code);
+}
+
+// Prints RGB values : see color.h
 void printRGBValues(rgb *rgbColor)
 {
-  printf("(%d,%d,%d)", rgbColor->red, rgbColor->green, rgbColor->blue);
+  printf("(%d,%d,%d)\n", rgbColor->red, rgbColor->green, rgbColor->blue);
 }
