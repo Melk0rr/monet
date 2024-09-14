@@ -71,7 +71,9 @@ bool checkRGBValue(const unsigned char value)
   return check;
 }
 
+// A function to convert a hex color into an RGB one : see color.h
 rgb *hex2RGB(hex *hex)
 {
-
+  unsigned long hexValue = strtoul((char *)hex->code, NULL, 16);
+  return newRGBColor((hexValue >> 16) & 0xFF, (hexValue >> 8) & 0xFF, hexValue & 0xFF);
 }
