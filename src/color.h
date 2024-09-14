@@ -21,9 +21,9 @@ typedef struct hex
  */
 typedef struct rgb
 {
-  unsigned char red;
-  unsigned char green;
-  unsigned char blue;
+  int red;
+  int green;
+  int blue;
 
 } rgb;
 
@@ -52,21 +52,21 @@ hex *newHexColor(const unsigned char *hexStr);
 /**
  * @brief Creates a new RGB color based on the given red, green and blue values
  * 
- * @param r {const unsigned char} : red value
- * @param g {const unsigned char} : green value
- * @param b {const unsigned char} : blue value
+ * @param r {const int} : red value
+ * @param g {const int} : green value
+ * @param b {const int} : blue value
  * @return rgb* {rgb} : new rgb color
  */
-rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned char b);
+rgb *newRGBColor(const int r, const int g, const int b);
 
 /**
  * @brief Cheks if the given value is a valid RGB value
  * 
- * @param value {const unsigned char} : value to check
+ * @param value {const float} : value to check
  * @return true {bool} : the value is valid
  * @return false {bool} : the value is not valid
  */
-bool checkRGBValue(const unsigned char value);
+bool checkRGBValue(const float value);
 
 /**
  * @brief Checks if the given hue value is valid

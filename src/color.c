@@ -42,7 +42,7 @@ hex *newHexColor(const unsigned char *hexStr)
 }
 
 // A function to create a new RGB color : see color.h
-rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned char b)
+rgb *newRGBColor(const int r, const int g, const int b)
 {
   rgb *newColor = malloc(sizeof(*newColor));
 
@@ -60,7 +60,19 @@ rgb *newRGBColor(const unsigned char r, const unsigned char g, const unsigned ch
 }
 
 // A function to check if the given value is a valid RGB value : see color.h
-bool checkRGBValue(const unsigned char value)
+bool checkRGBValue(const float value)
+{
+  bool check = false;
+  if (value >= 0 && value <= 255)
+  {
+    check = true;
+  }
+  
+  return check;
+}
+
+// A function to check if the given value is a valid Hue value : see color.h
+bool checkHueValue(const float value)
 {
   bool check = true;
   if (value > 255 || value < 0)
