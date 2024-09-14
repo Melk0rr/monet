@@ -122,6 +122,14 @@ hex *rgb2Hex(rgb *rgb);
 hsl *rgb2HSL(rgb *rgb);
 
 /**
+ * @brief Gets RGB from HSL
+ * 
+ * @param hsl {hsl} : hsl to use to get RGB values
+ * @return rgb* {rgb} : RGB values
+ */
+rgb *hsl2RGB(hsl *hsl);
+
+/**
  * @brief Returns an array of RGB percentages
  * 
  * @param rgb {rgb} : rgb target
