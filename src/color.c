@@ -216,15 +216,7 @@ rgb *hsl2RGB(hsl *hsl)
   {
     float tmpV = tmpArr[i];
     
-    if (tmpV < 0)
-    {
-      tmpV += 1;
-    }
-
-    if (tmpV > 1)
-    {
-      tmpV -= 1;
-    }
+    tmpV += (tmpV < 0) ? 1 : -1;
 
     if ((6 * tmpV) < 1)
     {
