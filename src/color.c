@@ -196,3 +196,9 @@ void printRGBValues(rgb *rgbColor)
 {
   printf("(%d,%d,%d)\n", rgbColor->red, rgbColor->green, rgbColor->blue);
 }
+
+// Prints HSL values : see color.h
+void printHSLValues(hsl *hslTuple)
+{
+  printf("(%f,%f,%f)\n", hslTuple->hue, hslTuple->saturation, hslTuple->lightness);
+}
