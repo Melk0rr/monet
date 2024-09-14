@@ -5,11 +5,19 @@
 // #########################################################
 // color struct definitions
 
+/**
+ * @brief A structure to handle hex colors
+ * 
+ */
 typedef struct hex
 {
   unsigned char code[6];
 } hex;
 
+/**
+ * @brief A structure to handle rgb colors
+ * 
+ */
 typedef struct rgb
 {
   unsigned char red;
@@ -18,6 +26,10 @@ typedef struct rgb
 
 } rgb;
 
+/**
+ * @brief A structure to handle hsl tuple
+ * 
+ */
 typedef struct hsl
 {
   float hue;
