@@ -251,7 +251,7 @@ rgb *hsl2RGB(hsl *hsl)
 }
 
 // A function to max the given color saturation : see color.h
-hex *maxSaturation(hex *baseColor)
+hex *maxHexSaturation(hex *baseColor)
 {
   rgb *baseRGB = hex2RGB(baseColor);
   hsl *baseHSL = rgb2HSL(baseRGB);

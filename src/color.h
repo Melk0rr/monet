@@ -135,7 +135,7 @@ rgb *hsl2RGB(hsl *hsl);
  * @param baseColor {hex} : hex color to which max the saturation
  * @return hex* {hex} : new hex color
  */
-hex *maxSaturation(hex *baseColor);
+hex *maxHexSaturation(hex *baseColor);
 
 /**
  * @brief Returns an array of RGB percentages
