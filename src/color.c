@@ -215,29 +215,29 @@ rgb *hsl2RGB(hsl *hsl)
   for (int i = 0; i < 3; i++)
   {
     float tmpV = tmpArr[i];
-    float v;
+    printf("%f\n", tmpV);
     
     if (tmpV < 0)
     {
-      tmpV = tmpV + 1;
+      tmpV += 1;
     }
 
     if (tmpV > 1)
     {
-      tmpV = tmpV - 1;
+      tmpV -= 1;
     }
 
-    if (6 * tmpV < 1)
+    if ((6 * tmpV) < 1)
     {
       rgb[i] = tmp2 + (tmp1 - tmp2) * 6 * tmpV;
 
     } else {
-      if (2 * tmpV < 1)
+      if ((2 * tmpV) < 1)
       {
         rgb[i] = tmp1;
 
       } else {
-        if (3 * tmpV < 2)
+        if ((3 * tmpV) < 2)
         {
           rgb[i] = tmp2 + (tmp1 - tmp2) * (.666 - tmpV) * 6;
 
@@ -248,7 +248,7 @@ rgb *hsl2RGB(hsl *hsl)
     }
   }
 
-  return newRGBColor(rgb[0], rgb[1], rgb[2]);
+  return newRGBColor(rgb[0] * 255 + 1, rgb[1] * 255 + 1, rgb[2] * 255);
 }
 
 // Prints Hex color value : see color.h
