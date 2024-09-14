@@ -251,6 +251,18 @@ rgb *hsl2RGB(hsl *hsl)
   return newRGBColor(rgb[0] * 255 + 1, rgb[1] * 255 + 1, rgb[2] * 255);
 }
 
+// A function to max the given color saturation : see color.h
+hex *maxSaturation(hex *baseColor)
+{
+  rgb *baseRGB = hex2RGB(baseColor);
+  hsl *baseHSL = rgb2HSL(baseRGB);
+  
+  hsl *newHSL = newHSLTuple(baseHSL->hue, 1, baseHSL->lightness);
+  rgb *newRGB = hsl2RGB(newHSL);
+  
+  return rgb2Hex(newRGB);
+}
+
 // Prints Hex color value : see color.h
 void printHexValue(hex *hexColor)
 {
