@@ -4,7 +4,7 @@
 #include "utils.h"
 
 // #########################################################
-// color struct definitions
+// Struct definitions
 
 /**
  * @brief A structure to handle hex colors
