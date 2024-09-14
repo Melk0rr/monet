@@ -78,6 +78,14 @@ rgb *hex2RGB(hex *hex)
   return newRGBColor((hexValue >> 16) & 0xFF, (hexValue >> 8) & 0xFF, hexValue & 0xFF);
 }
 
+hex *rgb2Hex(rgb *rgb)
+{
+  unsigned char *hexStr = (unsigned char *)malloc(6);
+  sprintf((char *)hexStr, "%02x%02x%02x", rgb->red, rgb->green, rgb->blue);
+  
+  return newHexColor(hexStr);
+}
+
 // Prints Hex color value : see color.h
 void printHexValue(hex *hexColor)
 {
