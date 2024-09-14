@@ -60,6 +60,16 @@ hex *newHexColor(const unsigned char *hexStr);
 rgb *newRGBColor(const int r, const int g, const int b);
 
 /**
+ * @brief Creates a new HSL tuple based on the giver hue, saturation and lightness
+ * 
+ * @param h {const float} : hue value
+ * @param s {const float} : saturation value
+ * @param l {const float} : lightness value
+ * @return hsl* {hsl} : hsl tuple
+ */
+hsl *newHSLTuple(const float h, const float s, const float l);
+
+/**
  * @brief Cheks if the given value is a valid RGB value
  * 
  * @param value {const float} : value to check
@@ -67,15 +77,6 @@ rgb *newRGBColor(const int r, const int g, const int b);
  * @return false {bool} : the value is not valid
  */
 bool checkRGBValue(const float value);
-
-/**
- * @brief Checks if the given hue value is valid
- * 
- * @param value {float} : value to check
- * @return true {bool} : value is valid
- * @return false {bool} : value is not valid
- */
-bool checkHueValue(const float value);
 
 /**
  * @brief Checks if the given Saturation / Lightness value is valid
@@ -111,6 +112,22 @@ rgb *hex2RGB(hex *hex);
  * @return hex* {rgb} : converted Hex color
  */
 hex *rgb2Hex(rgb *rgb);
+
+/**
+ * @brief Gets HSL from RGB
+ * 
+ * @param rgb {rgb} : RGB to use to get HSL values
+ * @return hsl* {hsl} : HSL values
+ */
+hsl *rgb2HSL(rgb *rgb);
+
+/**
+ * @brief Returns an array of RGB percentages
+ * 
+ * @param rgb {rgb} : rgb target
+ * @return float* : array of percentages
+ */
+float *rgbPercentages(rgb *rgb);
 
 /**
  * @brief Prints Hex value
