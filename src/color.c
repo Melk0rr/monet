@@ -185,6 +185,72 @@ hsl *rgb2HSL(rgb *rgb)
   return newHSLTuple(h, s, l);
 }
 
+// A function to get RGB values from HSL
+rgb *hsl2RGB(hsl *hsl)
+{
+  if (hsl->saturation == 0)
+  {
+    return newRGBColor(hsl->hue * 255, hsl->saturation * 255, hsl->lightness * 255);
+  }
+  
+  float tmp1;
+  if (hsl->lightness < 0.5)
+  {
+    tmp1 = hsl->lightness * (1 + hsl->saturation);
+    
+  } else {
+    tmp1 = hsl->lightness + hsl->saturation - hsl->lightness * hsl->saturation;
+  }
+  
+  float tmp2 = 2 * hsl->lightness - tmp1;
+  float newHue = hsl->hue / 360;
+  
+  float tmpRed = newHue + .333;
+  float tmpGreen = newHue;
+  float tmpBlue = newHue - .333;
+  
+  float tmpArr[3] = { tmpRed, tmpGreen, tmpBlue };
+  float rgb[3];
+  
+  for (int i = 0; i < 3; i++)
+  {
+    float tmpV = tmpArr[i];
+    float v;
+    
+    if (tmpV < 0)
+    {
+      tmpV = tmpV + 1;
+    }
+
+    if (tmpV > 1)
+    {
+      tmpV = tmpV - 1;
+    }
+
+    if (6 * tmpV < 1)
+    {
+      rgb[i] = tmp2 + (tmp1 - tmp2) * 6 * tmpV;
+
+    } else {
+      if (2 * tmpV < 1)
+      {
+        rgb[i] = tmp1;
+
+      } else {
+        if (3 * tmpV < 2)
+        {
+          rgb[i] = tmp2 + (tmp1 - tmp2) * (.666 - tmpV) * 6;
+
+        } else {
+          rgb[i] = tmp2;
+        }
+      }
+    }
+  }
+
+  return newRGBColor(rgb[0], rgb[1], rgb[2]);
+}
+
 // Prints Hex color value : see color.h
 void printHexValue(hex *hexColor)
 {
