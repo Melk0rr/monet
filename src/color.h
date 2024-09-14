@@ -143,4 +143,11 @@ void printHexValue(hex *hexColor);
  */
 void printRGBValues(rgb *rgbColor);
 
+/**
+ * @brief Prints HSL values
+ * 
+ * @param hslTuple {hsl} : hsl to print
+ */
+void printHSLValues(hsl *hslTuple);
+
 #endif
