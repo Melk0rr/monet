@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
@@ -261,6 +262,19 @@ hex *setHexColorSaturation(hex *baseColor, float saturation)
   rgb *newRGB = hsl2RGB(newHSL);
   
   return rgb2Hex(newRGB);
+}
+
+// A function to calculates a basic distance between two colors : see color.h
+float getHexBasicColorDistance(hex *hexColor1, hex *hexColor2)
+{
+  rgb *rgbColor1 = hex2RGB(hexColor1);
+  rgb *rgbColor2 = hex2RGB(hexColor2);
+  
+  float rc = pow(rgbColor1->red - rgbColor2->red, 2);
+  float gc = pow(rgbColor1->green - rgbColor2->green, 2);
+  float bc = pow(rgbColor1->blue - rgbColor2->blue, 2);
+  
+  return sqrt(rc + gc + bc) / sqrt(pow(255, 2) + pow(255, 2) + pow(255, 2));
 }
 
 // Prints Hex color value : see color.h

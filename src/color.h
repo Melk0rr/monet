@@ -147,6 +147,15 @@ hex *setHexColorSaturation(hex *baseColor, float saturation);
 float *rgbPercentages(rgb *rgb);
 
 /**
+ * @brief Calculates the distance between two hex colors
+ * 
+ * @param hexColor1 {hex} : first hex color
+ * @param hexColor2 {hex} : second hex color
+ * @return {float} : distance
+ */
+float getHexBasicColorDistance(hex *hexColor1, hex *hexColor2);
+
+/**
  * @brief Prints Hex value
  * 
  * @param hexColor {hex} : hex to print
