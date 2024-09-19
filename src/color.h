@@ -6,6 +6,9 @@
 // #########################################################
 // Struct definitions
 
+static const char HEXREG[] = "^#(?:[0-9a-fA-F]{3}){1,2}$";
+static const char RGBREG[] = "^(?:rgb)?\(?(?:[0-9]{1,3}), ?(?:[0-9]{1,3}), ?(?:[0-9]{1,3}))?$";
+
 /**
  * @brief A structure to handle hex colors
  * 
@@ -37,6 +40,12 @@ typedef struct hsl
   float saturation;
   float lightness;
 } hsl;
+
+typedef union color
+{
+  hex *hexColor;
+  rgb *rgbColor;
+} color;
 
 // #########################################################
 // Prototypes
