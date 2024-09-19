@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
 	} mode;
 	
 	regex_t testreg;
-	int testCheck = regcomp(&testreg, "^#[0-9a-fA-F]*$", REG_EXTENDED);
-	testCheck = regexec(&testreg, "#f8a", 0, NULL, 0);
+	int testCheck = regcomp(&testreg, HEXREG, REG_EXTENDED);
+	testCheck = regexec(&testreg, "#ffcc53", 0, NULL, 0);
 
 	if (!testCheck)
 	{
