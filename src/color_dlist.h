@@ -47,4 +47,13 @@ ColorDList *newColorDList(void);
  */
 bool isColorDListEmpty(ColorDList *cli);
 
+/**
+ * @brief Adds a new color to the given color dlist
+ * 
+ * @param cli {ColorDList} : list to push the new color into
+ * @param col {color} : new color
+ * @return ColorDList* : updated color dlist
+ */
+ColorDList *pushBackColorDList(ColorDList *cli, color *col);
+
 #endif
