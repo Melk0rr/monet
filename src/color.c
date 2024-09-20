@@ -251,6 +251,26 @@ rgb *hsl2RGB(hsl *hsl)
   return newRGBColor(rgb[0] * 255 + 1, rgb[1] * 255 + 1, rgb[2] * 255);
 }
 
+// Function to clean rgb string from unwanted characters : see color.h
+char *cleanRGBString(char *rgbStr)
+{
+  char *cleaned;
+  int hexStrLen = strlen(rgbStr);
+
+  printf("RGB len: %d\n", hexStrLen);
+  unsigned int i = 0;
+  for ( ; i < hexStrLen; i++)
+  {
+    if (rgbStr[i] != '(' &&  rgbStr[i] != ')' && rgbStr[i] != ' ')
+    {
+      cleaned[i] = rgbStr[i];
+    }
+  }
+  cleaned[i + 1] = '\0';
+
+  return cleaned;
+}
+
 // A function to set the given color saturation : see color.h
 hex *setHexColorSaturation(hex *baseColor, float saturation)
 {
