@@ -46,7 +46,7 @@ hex *newHexColor(const unsigned char *hexStr)
 }
 
 // A function to create a new RGB color : see color.h
-rgb *newRGBColor(const int r, const int g, const int b)
+rgb *newRGBColor(const unsigned int r, const unsigned int g, const unsigned int b)
 {
   rgb *newColor = malloc(sizeof(*newColor));
 
