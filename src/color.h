@@ -24,9 +24,9 @@ typedef struct hex
  */
 typedef struct rgb
 {
-  int red;
-  int green;
-  int blue;
+  unsigned int red;
+  unsigned int green;
+  unsigned int blue;
 
 } rgb;
 
@@ -66,7 +66,7 @@ hex *newHexColor(const unsigned char *hexStr);
  * @param b {const int} : blue value
  * @return rgb* {rgb} : new rgb color
  */
-rgb *newRGBColor(const int r, const int g, const int b);
+rgb *newRGBColor(const unsigned int r, const unsigned int g, const unsigned int b);
 
 /**
  * @brief Creates a new HSL tuple based on the giver hue, saturation and lightness
