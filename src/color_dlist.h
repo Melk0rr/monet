@@ -31,4 +31,20 @@ typedef struct ColorDList
 // #########################################################
 // Prototypes
 
+/**
+ * @brief Creates an empty color dlist
+ * 
+ * @return ColorDList : new empty color dlist
+ */
+ColorDList *newColorDList(void);
+
+/**
+ * @brief Checks if an color dlist is empty
+ * 
+ * @param eli {colorDList} : list to check
+ * @return true : the list is empty
+ * @return false : the list is not empty
+ */
+bool isColorDListEmpty(ColorDList *cli);
+
 #endif
