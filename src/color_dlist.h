@@ -64,4 +64,11 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col);
  */
 ColorDList *popBackColorDList(ColorDList *cli);
 
+/**
+ * @brief Deletes a color dlist
+ * 
+ * @param cli {ColorDList} : color dlist to delete
+ */
+void deleteColorDList(ColorDList *cli);
+
 #endif

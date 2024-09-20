@@ -75,7 +75,7 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col)
   return cli;
 }
 
-// Function to pop an expense node from given list end : see expense_dlist.h
+// Function to pop an color node from given list end : see color_dlist.h
 ColorDList *popBackColorDList(ColorDList *cli)
 {
   if (isColorDListEmpty(cli))
@@ -111,4 +111,22 @@ ColorDList *popBackColorDList(ColorDList *cli)
   cli->length--;
 
   return cli;
+}
+
+// Function to clear an color dlist content : see color_dlist.h
+ColorDList *clearColorDlist(ColorDList *cli)
+{
+  while(!isColorDListEmpty(cli))
+  {
+    cli = popBackColorDList(cli);
+  }
+  
+  return newColorDList();
+}
+
+// Function to delete a color dlist : see color_dlist.h
+void deleteColorDList(ColorDList *cli)
+{
+  cli = clearColorDlist(cli);
+  free(cli);
 }
