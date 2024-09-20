@@ -52,8 +52,16 @@ bool isColorDListEmpty(ColorDList *cli);
  * 
  * @param cli {ColorDList} : list to push the new color into
  * @param col {color} : new color
- * @return ColorDList* : updated color dlist
+ * @return ColorDList* {ColorDList} : updated color dlist
  */
 ColorDList *pushBackColorDList(ColorDList *cli, color *col);
+
+/**
+ * @brief Removes the last color from given color dlist
+ * 
+ * @param cli {ColorDList} : color dlist to retreive last color from
+ * @return ColorDList* {ColorDList} : updated color dlist
+ */
+ColorDList *popBackColorDList(ColorDList *cli);
 
 #endif
