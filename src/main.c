@@ -32,23 +32,11 @@ int main(int argc, char *argv[])
 		DISTANCE
 	} mode;
 	
-	regex_t testreg;
-	int testCheck = regcomp(&testreg, HEXREG, REG_EXTENDED);
-	testCheck = regexec(&testreg, "#ffcc53", 0, NULL, 0);
-
-	if (!testCheck)
-	{
-		printf("Test check match !");
-	} else 
-	{
-		printf("Test check not match !");
-	}
-
 	regex_t reghex;
-	int hexCheck = regcomp(&reghex, "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$", 0);
+	int hexCheck = regcomp(&reghex, HEXREG, REG_EXTENDED);
 
 	regex_t rgbex;
-	int rgbCheck = regcomp(&rgbex, RGBREG, 0);
+	int rgbCheck = regcomp(&rgbex, RGBREG, REG_EXTENDED);
 
 	while ((
 		opt = getopt_long(argc, argv, "c:s:d:vH", longOptions, &optionIndex
@@ -82,7 +70,6 @@ int main(int argc, char *argv[])
 				// RGB color code regex
 				rgbCheck = regexec(&rgbex, optarg, 0, NULL, 0);
 				
-				printf("hex check: %d\n", hexCheck);
 				// Check which color format matches
 				if (!hexCheck)
 				{
@@ -98,7 +85,6 @@ int main(int argc, char *argv[])
 					exit(0);
 				}
 				
-				// colors[colorCount - 1];
 				printf("Color: %s\n", optarg);
 				break;
 
