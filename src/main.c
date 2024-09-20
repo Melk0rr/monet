@@ -4,6 +4,7 @@
 #include <regex.h>
 
 #include "color.h"
+#include "color_dlist.h"
 
 static int verbose_flag = 0;
 
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 	};
 
 	int colorCount = 0;
-	color *colors = malloc(sizeof(*colors));
+	ColorDList *colors = newColorDList();
 	float saturation;
 
 	enum {
@@ -61,29 +62,35 @@ int main(int argc, char *argv[])
 				break;
 				
 			case 'c':
-				// hexColor = newHexColor((const unsigned char *)optarg);
-				colors = realloc(colors, ++colorCount * sizeof(*colors));
 
 				// Hex color code regex
 				hexCheck = regexec(&reghex, optarg, 0, NULL, 0);
 
 				// RGB color code regex
 				rgbCheck = regexec(&rgbex, optarg, 0, NULL, 0);
+
+				color *c;
 				
 				// Check which color format matches
 				if (!hexCheck)
 				{
 					printf("Hex color matched !\n");
+					c->hexColor = newHexColor((const unsigned char *)optarg);
+					c->rgbColor = hex2RGB(c->hexColor);
 
 				}	else if (!rgbCheck)
 				{
-					printf("RGB color matched !\n");
+					// TODO : use regex to capture matching groups into rgb values
+					char *test = cleanRGBString(optarg);
+					printf("RGB color matched: %s !\n", test);
 
 				}	else
 				{
 					fprintf(stderr, "Invalid color provided: %s\n", optarg);
 					exit(0);
 				}
+
+				colors = pushBackColorDList(colors, c);
 				
 				printf("Color: %s\n", optarg);
 				break;
