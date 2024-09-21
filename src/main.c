@@ -1,6 +1,7 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <regex.h>
 
 #include "color.h"
@@ -38,6 +39,8 @@ int main(int argc, char *argv[])
 
 	regex_t rgbex;
 	int rgbCheck = regcomp(&rgbex, RGBREG, REG_EXTENDED);
+	const size_t nmatch = 4;
+	regmatch_t pmatch[nmatch + 1];
 
 	while ((
 		opt = getopt_long(argc, argv, "c:s:d:vH", longOptions, &optionIndex
@@ -67,22 +70,26 @@ int main(int argc, char *argv[])
 				hexCheck = regexec(&reghex, optarg, 0, NULL, 0);
 
 				// RGB color code regex
-				rgbCheck = regexec(&rgbex, optarg, 0, NULL, 0);
+				rgbCheck = regexec(&rgbex, optarg, nmatch, pmatch, 0);
 
 				color *c;
 				
 				// Check which color format matches
-				if (!hexCheck)
+				if (hexCheck == 0)
 				{
 					printf("Hex color matched !\n");
 					c->hexColor = newHexColor((const unsigned char *)optarg);
 					c->rgbColor = hex2RGB(c->hexColor);
 
-				}	else if (!rgbCheck)
+				}	else if (rgbCheck == 0)
 				{
 					// TODO : use regex to capture matching groups into rgb values
-					char *test = cleanRGBString(optarg);
-					printf("RGB color matched: %s !\n", test);
+					for (size_t i = 0; pmatch[i].rm_so != -1 && i < nmatch; i++)
+					{
+						char buf[256] = {0};
+						strncpy(buf, optarg + pmatch[i].rm_so, pmatch[i].rm_eo - pmatch[i].rm_so);
+						printf("start %d, end %d: %s\n", pmatch[i].rm_so, pmatch[i].rm_eo, buf);
+					}
 
 				}	else
 				{
