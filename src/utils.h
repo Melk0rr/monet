@@ -99,4 +99,4 @@ void printBlue(const char *text);
  * @param pattern {char *} : regex pattern
  * @return regmatch_t : pmatch array
  */
-int regCheck(char *myStr, char *pattern, size_t nmatch, regmatch_t pmatch[]);
+int regCheck(const char *myStr, const char *pattern, size_t nmatch, regmatch_t pmatch[]);

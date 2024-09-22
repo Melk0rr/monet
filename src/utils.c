@@ -53,7 +53,7 @@ void printBlue(const char *text)
 }
 
 // Function to check if a given string matches provided regex pattern
-int regCheck(char *myStr, char *pattern, size_t nmatch, regmatch_t pmatch[])
+int regCheck(const char *myStr, const char *pattern, size_t nmatch, regmatch_t pmatch[])
 {
   regex_t regex;
   assert(regcomp(&regex, pattern, REG_EXTENDED) == 0);
