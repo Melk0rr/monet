@@ -13,36 +13,30 @@
 hex *newHexColor(const unsigned char *hexStr)
 {
   hex *newColor = malloc(sizeof(*newColor));
-  int hexLen = strlen((char *)hexStr);
 
-  if
-  (
-    (hexLen != 7 && strchr((char *)hexStr, '#')) || 
-    (hexLen != 6 && !strchr((char *)hexStr, '#')) ||
-    (strchr((char *)hexStr, '#') && ((hexStr[0] == '#') == 0))
-  )
+  const size_t nmatch = 2;
+	regmatch_t pmatch[nmatch + 1];
+
+  int hexCheck = regCheck((char *)hexStr, HEXREG, nmatch, pmatch);
+
+  if (hexCheck == 0)
   {
-    fprintf(stderr, "newHexColor::Invalid value provided !");
+    char buf[256] = {0};
+    strncpy(buf, (char *)hexStr + pmatch[1].rm_so, pmatch[1].rm_eo - pmatch[1].rm_so);
+
+    int hexLen = strlen(buf);
+    for (int i = 0; i < hexLen; i++)
+    {
+      newColor->code[i] = buf[i];
+    }
+    newColor->code[hexLen] = '\0';
+
+    return newColor;
+
+  } else 
+  {
     return NULL;
   }
-
-  // If the hex string contains '#' : skip it
-  bool skipFirstChar = false;
-  int i = 0;
-
-  if (hexStr[0] == '#')
-  {
-    skipFirstChar = true;
-    i = 1;
-  }
-  
-  for (; i < hexLen; i++)
-  {
-    newColor->code[i - (skipFirstChar ? 1 : 0)] = hexStr[i];
-  }
-  newColor->code[hexLen - (skipFirstChar ? 1 : 0)] = '\0';
-
-  return newColor;
 }
 
 // A function to create a new RGB color : see color.h
@@ -61,6 +55,36 @@ rgb *newRGBColor(const unsigned int r, const unsigned int g, const unsigned int 
   newColor->blue = b;
 
   return newColor;
+}
+
+// Function to extract RGB values from string : see color.h
+rgb *newRGBColorFromStr(const char *rgbStr)
+{
+  rgb *rgbCol;
+
+  const size_t nmatch = 4;
+	regmatch_t pmatch[nmatch + 1];
+
+  int rgbCheck = regCheck(rgbStr, RGBREG, nmatch, pmatch);
+
+  if (rgbCheck == 0)
+  {
+    int rgbValues[3];
+
+    for (size_t i = 1; pmatch[i].rm_so != -1 && i < nmatch; i++)
+    {
+      char buf[256] = {0};
+      strncpy(buf, rgbStr + pmatch[i].rm_so, pmatch[i].rm_eo - pmatch[i].rm_so);
+      rgbValues[i - 1] = atoi(buf);
+    }
+
+    rgbCol = newRGBColor(rgbValues[0], rgbValues[1], rgbValues[2]);
+    return rgbCol;
+    
+  } else
+  {
+    return NULL;
+  }
 }
 
 // A function to create a new HSL tuple : see color.h
@@ -105,6 +129,7 @@ bool checkSLValue(const float value)
   return check;
 }
 
+// Function to get percentages repartition of RGB values
 float *rgbPercentages(rgb *rgb)
 {
   float *perc = malloc(3 * sizeof(*perc));
