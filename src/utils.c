@@ -1,6 +1,8 @@
 #include "utils.h"
 
+#include <regex.h>
 #include <stdio.h>
+#include <assert.h>
 
 // Define ANSI escape codes for colors
 #define RESET       "\x1b[0m"
@@ -48,4 +50,13 @@ void printYellow(const char *text)
 void printBlue(const char *text)
 {
   printInColor(text, BLUE);
+}
+
+// Function to check if a given string matches provided regex pattern
+int regCheck(char *myStr, char *pattern, size_t nmatch, regmatch_t pmatch[])
+{
+  regex_t regex;
+  assert(regcomp(&regex, pattern, REG_EXTENDED) == 0);
+
+  return regexec(&regex, myStr, nmatch, pmatch, 0);
 }
