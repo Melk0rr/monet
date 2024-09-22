@@ -77,6 +77,13 @@ rgb *newRGBColor(const unsigned int r, const unsigned int g, const unsigned int 
 rgb *newRGBColorFromStr(const char *rgbStr);
 
 /**
+ * @brief Creates a new color
+ * 
+ * @return color* : new color
+ */
+color *newColor();
+
+/**
  * @brief Creates a new HSL tuple based on the giver hue, saturation and lightness
  * 
  * @param h {const float} : hue value
