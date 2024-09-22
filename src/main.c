@@ -59,29 +59,7 @@ int main(int argc, char *argv[])
 				
 			case 'c':
 				// New color
-				color *c = newColor();
-
-				hex *hexFromArg = newHexColor((const unsigned char *)optarg);
-				rgb *rgbFromArg = newRGBColorFromStr(optarg);
-				
-				// Check which color format matches
-				if (hexFromArg != NULL)
-				{
-					c->hexValue = hexFromArg;
-					c->rgbValues = hex2RGB(hexFromArg);
-					printf("Hex: %s\n", c->hexValue->code);
-					
-				}	else if (rgbFromArg != NULL)
-				{
-					c->rgbValues = rgbFromArg;
-					c->hexValue = rgb2Hex(rgbFromArg);
-
-				}	else
-				{
-					fprintf(stderr, "Invalid color provided: %s\n", optarg);
-					exit(0);
-				}
-
+				color *c = newColorFromStr(optarg);
 				colors = pushBackColorDList(colors, c);
 				
 				printColor(c);

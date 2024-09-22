@@ -84,6 +84,14 @@ rgb *newRGBColorFromStr(const char *rgbStr);
 color *newColor();
 
 /**
+ * @brief Creates a new color from given string
+ * 
+ * @param colStr {const char *} : string to use
+ * @return color* : new color
+ */
+color *newColorFromStr(const char *colStr);
+
+/**
  * @brief Creates a new HSL tuple based on the giver hue, saturation and lightness
  * 
  * @param h {const float} : hue value

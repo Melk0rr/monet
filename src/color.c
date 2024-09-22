@@ -29,7 +29,7 @@ hex *newHexColor(const unsigned char *hexStr)
     {
       newColor->code[i] = buf[i];
     }
-    newColor->code[hexLen + 1] = '\0';
+    newColor->code[hexLen] = '\0';
 
     return newColor;
 
@@ -101,6 +101,41 @@ color *newColor()
   return c;
 }
 
+// Function to create a new color from color string : see color.h
+color *newColorFromStr(const char *colStr)
+{
+  color *newColor = malloc(sizeof(*newColor));
+  
+  if (newColor == NULL)
+  {
+    fprintf(stderr, "newColorFromStr::Memory allocation failed for new color");
+    exit(0);
+  }
+  
+  hex *hexFromArg = newHexColor((const unsigned char *)colStr);
+  rgb *rgbFromArg = newRGBColorFromStr(colStr);
+  
+  // Check which color format matches
+  if (hexFromArg != NULL)
+  {
+    rgbFromArg = hex2RGB(hexFromArg);
+
+  }	else if (rgbFromArg != NULL)
+  {
+    hexFromArg = rgb2Hex(rgbFromArg);
+
+  }	else
+  {
+    fprintf(stderr, "Invalid color provided: %s\n", colStr);
+    exit(0);
+  }
+
+  newColor->hexValue = hexFromArg;
+  newColor->rgbValues = rgbFromArg;
+  
+  return newColor;
+}
+
 // A function to create a new HSL tuple : see color.h
 hsl *newHSLTuple(const float h, const float s, const float l)
 {
@@ -158,10 +193,9 @@ float *rgbPercentages(rgb *rgb)
 // A function to convert a hex color into an RGB one : see color.h
 rgb *hex2RGB(hex *hexCol)
 {
-  char hexStr[7];
-  strcpy(hexStr, (const char *)hexCol->code);
-  unsigned long hexValue = strtoul(hexStr, NULL, 16);
-  return newRGBColor((hexValue >> 16) & 0xFF, (hexValue >> 8) & 0xFF, hexValue & 0xFF);
+  int r, g, b;
+  sscanf((const char *)hexCol->code, "%02x%02x%02x", &r, &g, &b);
+  return newRGBColor(r, g, b);
 }
 
 hex *rgb2Hex(rgb *rgb)
