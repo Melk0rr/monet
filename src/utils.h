@@ -1,6 +1,8 @@
 #ifndef __UTILS__H__
 #define __UTILS__H__
 
+#include <regex.h>
+
 // #########################################################
 // Struct definitions
 
@@ -89,3 +91,12 @@ void printYellow(const char *test);
  * @param text {const char *} : text to print
  */
 void printBlue(const char *text);
+
+/**
+ * @brief Check if provided string matches the given regex pattern
+ * 
+ * @param myStr {char *} : string to check
+ * @param pattern {char *} : regex pattern
+ * @return regmatch_t : pmatch array
+ */
+int regCheck(char *myStr, char *pattern, size_t nmatch, regmatch_t pmatch[]);
