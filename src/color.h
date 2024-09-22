@@ -15,7 +15,7 @@ static const char RGBREG[] = "([0-9]{1,3}), ?([0-9]{1,3}), ?([0-9]{1,3})";
  */
 typedef struct hex
 {
-  unsigned char code[6];
+  unsigned char code[7];
 } hex;
 
 /**
@@ -43,7 +43,7 @@ typedef struct hsl
 
 typedef union color
 {
-  hex *hexCode;
+  hex *hexValue;
   rgb *rgbValues;
 } color;
 
@@ -127,7 +127,7 @@ hsl *newHSLTuple(const float h, const float s, const float l);
  * @param hex {hex} : hex color to convert
  * @return rgb* {rgb} : converted RGB color
  */
-rgb *hex2RGB(hex *hex);
+rgb *hex2RGB(hex *hexCol);
 
 /**
  * @brief Converts an RGB color to hex
@@ -200,6 +200,13 @@ void printHexValue(hex *hexColor);
  * @param rgbColor {rgb} : rgb to print
  */
 void printRGBValues(rgb *rgbColor);
+
+/**
+ * @brief Prints color hex and rgb values
+ * 
+ * @param col {color} : color to print
+ */
+void printColor(color *col);
 
 /**
  * @brief Prints HSL values

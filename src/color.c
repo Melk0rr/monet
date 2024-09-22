@@ -29,7 +29,7 @@ hex *newHexColor(const unsigned char *hexStr)
     {
       newColor->code[i] = buf[i];
     }
-    newColor->code[hexLen] = '\0';
+    newColor->code[hexLen + 1] = '\0';
 
     return newColor;
 
@@ -87,6 +87,20 @@ rgb *newRGBColorFromStr(const char *rgbStr)
   }
 }
 
+// Function to create a new color : see color.h
+color *newColor()
+{
+  color *c = malloc(sizeof(*c));
+
+  if (c != NULL)
+  {
+    c->hexValue = NULL;
+    c->rgbValues = NULL;
+  }
+  
+  return c;
+}
+
 // A function to create a new HSL tuple : see color.h
 hsl *newHSLTuple(const float h, const float s, const float l)
 {
@@ -142,9 +156,11 @@ float *rgbPercentages(rgb *rgb)
 }
 
 // A function to convert a hex color into an RGB one : see color.h
-rgb *hex2RGB(hex *hex)
+rgb *hex2RGB(hex *hexCol)
 {
-  unsigned long hexValue = strtoul((char *)hex->code, NULL, 16);
+  char hexStr[7];
+  strcpy(hexStr, (const char *)hexCol->code);
+  unsigned long hexValue = strtoul(hexStr, NULL, 16);
   return newRGBColor((hexValue >> 16) & 0xFF, (hexValue >> 8) & 0xFF, hexValue & 0xFF);
 }
 
@@ -338,4 +354,15 @@ void printRGBValues(rgb *rgbColor)
 void printHSLValues(hsl *hslTuple)
 {
   printf("(%f,%f,%f)\n", hslTuple->hue, hslTuple->saturation, hslTuple->lightness);
+}
+
+void printColor(color *col)
+{
+  printf(
+    "Color hex: #%s, color RGB: (%d,%d,%d)\n",
+    col->hexValue->code,
+    col->rgbValues->red,
+    col->rgbValues->green,
+    col->rgbValues->blue
+  );
 }

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <regex.h>
 
+#include "utils.h"
 #include "color.h"
 #include "color_dlist.h"
 
@@ -33,14 +34,6 @@ int main(int argc, char *argv[])
 		RGB2HEX,
 		DISTANCE
 	} mode;
-	
-	regex_t reghex;
-	int hexCheck = regcomp(&reghex, HEXREG, REG_EXTENDED);
-
-	regex_t rgbex;
-	int rgbCheck = regcomp(&rgbex, RGBREG, REG_EXTENDED);
-	const size_t nmatch = 4;
-	regmatch_t pmatch[nmatch + 1];
 
 	while ((
 		opt = getopt_long(argc, argv, "c:s:d:vH", longOptions, &optionIndex
@@ -65,31 +58,23 @@ int main(int argc, char *argv[])
 				break;
 				
 			case 'c':
+				// New color
+				color *c = newColor();
 
-				// Hex color code regex
-				hexCheck = regexec(&reghex, optarg, 0, NULL, 0);
-
-				// RGB color code regex
-				rgbCheck = regexec(&rgbex, optarg, nmatch, pmatch, 0);
-
-				color *c;
+				hex *hexFromArg = newHexColor((const unsigned char *)optarg);
+				rgb *rgbFromArg = newRGBColorFromStr(optarg);
 				
 				// Check which color format matches
-				if (hexCheck == 0)
+				if (hexFromArg != NULL)
 				{
-					printf("Hex color matched !\n");
-					c->hexColor = newHexColor((const unsigned char *)optarg);
-					c->rgbColor = hex2RGB(c->hexColor);
-
-				}	else if (rgbCheck == 0)
+					c->hexValue = hexFromArg;
+					c->rgbValues = hex2RGB(hexFromArg);
+					printf("Hex: %s\n", c->hexValue->code);
+					
+				}	else if (rgbFromArg != NULL)
 				{
-					// TODO : use regex to capture matching groups into rgb values
-					for (size_t i = 0; pmatch[i].rm_so != -1 && i < nmatch; i++)
-					{
-						char buf[256] = {0};
-						strncpy(buf, optarg + pmatch[i].rm_so, pmatch[i].rm_eo - pmatch[i].rm_so);
-						printf("start %d, end %d: %s\n", pmatch[i].rm_so, pmatch[i].rm_eo, buf);
-					}
+					c->rgbValues = rgbFromArg;
+					c->hexValue = rgb2Hex(rgbFromArg);
 
 				}	else
 				{
@@ -99,7 +84,7 @@ int main(int argc, char *argv[])
 
 				colors = pushBackColorDList(colors, c);
 				
-				printf("Color: %s\n", optarg);
+				printColor(c);
 				break;
 
 			case 'H':
