@@ -43,8 +43,8 @@ typedef struct hsl
 
 typedef union color
 {
-  hex *hexColor;
-  rgb *rgbColor;
+  hex *hexCode;
+  rgb *rgbValues;
 } color;
 
 // #########################################################
@@ -67,6 +67,14 @@ hex *newHexColor(const unsigned char *hexStr);
  * @return rgb* {rgb} : new rgb color
  */
 rgb *newRGBColor(const unsigned int r, const unsigned int g, const unsigned int b);
+
+/**
+ * @brief Creates a new RGB color based on a rgb string containing r,g,b values e.g. '(153,12,78)'
+ * 
+ * @param rgbStr {char *} : RGB string
+ * @return rgb* : new RGB color
+ */
+rgb *newRGBColorFromStr(const char *rgbStr);
 
 /**
  * @brief Creates a new HSL tuple based on the giver hue, saturation and lightness
