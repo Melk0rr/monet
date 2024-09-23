@@ -24,16 +24,15 @@ hex *newHexColor(const unsigned char *hexStr) {
             pmatch[1].rm_eo - pmatch[1].rm_so);
 
     int hexLen = strlen(buf);
-    for (int i = 0; i < hexLen; i++) {
+    for (int i = 0; i < hexLen; i++)
       newColor->code[i] = buf[i];
-    }
+
     newColor->code[hexLen] = '\0';
 
     return newColor;
 
-  } else {
+  } else
     return NULL;
-  }
 }
 
 // A function to create a new RGB color : see color.h
@@ -150,9 +149,8 @@ bool checkRGBValue(const float value) {
 // color.h
 bool checkSLValue(const float value) {
   bool check = false;
-  if (value >= 0 && value <= 1) {
+  if (value >= 0 && value <= 1)
     check = true;
-  }
 
   return check;
 }
@@ -198,54 +196,49 @@ hsl *rgb2HSL(rgb *rgb) {
 
   // Saturation
   float s;
-  if (minRGB == maxRGB) {
+  if (minRGB == maxRGB)
     s = 0;
 
-  } else if (l < 0.5) {
+  else if (l < 0.5)
     s = (maxRGB - minRGB) / (maxRGB + minRGB);
 
-  } else {
+  else
     s = (maxRGB - minRGB) / (2 - maxRGB - minRGB);
-  }
 
   // Hue
   float h;
-  if (s == 0) {
+  if (s == 0)
     h = 0;
 
-  } else if (redPerc >= MAX(greenPerc, bluePerc)) {
+  else if (redPerc >= MAX(greenPerc, bluePerc))
     h = (greenPerc - bluePerc) / (maxRGB - minRGB);
 
-  } else if (greenPerc >= MAX(redPerc, bluePerc)) {
+  else if (greenPerc >= MAX(redPerc, bluePerc))
     h = 2 + (bluePerc - redPerc) / (maxRGB - minRGB);
 
-  } else {
+  else
     h = 4 + (redPerc - greenPerc) / (maxRGB - minRGB);
-  }
 
   h *= 60;
 
-  if (h < 0) {
+  if (h < 0)
     h += 360;
-  }
 
   return newHSLTuple(h, s, l);
 }
 
 // A function to get RGB values from HSL
 rgb *hsl2RGB(hsl *hsl) {
-  if (hsl->saturation == 0) {
+  if (hsl->saturation == 0)
     return newRGBColor(hsl->hue * 255, hsl->saturation * 255,
                        hsl->lightness * 255);
-  }
 
   float tmp1;
-  if (hsl->lightness < 0.5) {
+  if (hsl->lightness < 0.5)
     tmp1 = hsl->lightness * (1 + hsl->saturation);
 
-  } else {
+  else
     tmp1 = hsl->lightness + hsl->saturation - hsl->lightness * hsl->saturation;
-  }
 
   float tmp2 = 2 * hsl->lightness - tmp1;
   float newHue = hsl->hue / 360;
@@ -260,28 +253,25 @@ rgb *hsl2RGB(hsl *hsl) {
   for (int i = 0; i < 3; i++) {
     float tmpV = tmpArr[i];
 
-    if (tmpV < 0) {
+    if (tmpV < 0)
       tmpV += 1;
-    }
 
-    if (tmpV > 1) {
+    if (tmpV > 1)
       tmpV -= 1;
-    }
 
-    if ((6 * tmpV) < 1) {
+    if ((6 * tmpV) < 1)
       rgb[i] = tmp2 + (tmp1 - tmp2) * 6 * tmpV;
 
-    } else {
-      if ((2 * tmpV) < 1) {
+    else {
+      if ((2 * tmpV) < 1)
         rgb[i] = tmp1;
 
-      } else {
-        if ((3 * tmpV) < 2) {
+      else {
+        if ((3 * tmpV) < 2)
           rgb[i] = tmp2 + (tmp1 - tmp2) * (.666 - tmpV) * 6;
 
-        } else {
+        else
           rgb[i] = tmp2;
-        }
       }
     }
   }
@@ -297,9 +287,8 @@ char *cleanRGBString(char *rgbStr) {
   printf("RGB len: %d\n", hexStrLen);
   unsigned int i = 0;
   for (; i < hexStrLen; i++) {
-    if (rgbStr[i] != '(' && rgbStr[i] != ')' && rgbStr[i] != ' ') {
+    if (rgbStr[i] != '(' && rgbStr[i] != ')' && rgbStr[i] != ' ')
       cleaned[i] = rgbStr[i];
-    }
   }
   cleaned[i + 1] = '\0';
 
