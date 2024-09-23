@@ -103,11 +103,15 @@ color *newColorFromStr(const char *colStr) {
   rgb *rgbFromArg = newRGBColorFromStr(colStr);
 
   // Check which color format matches
-  if (hexFromArg != NULL)
+  if (hexFromArg != NULL) {
+    free(rgbFromArg);
     rgbFromArg = hex2RGB(hexFromArg);
+  }
 
-  else if (rgbFromArg != NULL)
+  else if (rgbFromArg != NULL) {
+    free(hexFromArg);
     hexFromArg = rgb2Hex(rgbFromArg);
+  }
 
   else {
     fprintf(stderr, "Invalid color provided: %s\n", colStr);

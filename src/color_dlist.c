@@ -5,12 +5,10 @@
 #include <stdlib.h>
 
 // Function to create an empty color dlist : see color_dlist.h
-ColorDList *newColorDList()
-{
+ColorDList *newColorDList() {
   ColorDList *cli = malloc(sizeof(*cli));
 
-  if (cli != NULL)
-  {
+  if (cli != NULL) {
     cli->length = 0;
     cli->begin = NULL;
     cli->end = NULL;
@@ -20,10 +18,8 @@ ColorDList *newColorDList()
 }
 
 // Function to check if the given color dlist is empty : see color_dlist.h
-bool isColorDListEmpty(ColorDList *cli)
-{
-  if (cli == NULL || cli->end == NULL)
-  {
+bool isColorDListEmpty(ColorDList *cli) {
+  if (cli == NULL || cli->end == NULL) {
     return true;
   }
 
@@ -31,62 +27,58 @@ bool isColorDListEmpty(ColorDList *cli)
 }
 
 // Function to push a new color at the end of an color dlist : see color_dlist.h
-ColorDList *pushBackColorDList(ColorDList *cli, color *col)
-{
+ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
   ColorDListNode *colNode = malloc(sizeof(*colNode));
-  
-  if (colNode == NULL)
-  {
-    fprintf(stderr, "pushBackColorDList::Memory allocation failed for new ColorDListNode !");
+
+  if (colNode == NULL) {
+    fprintf(stderr, "pushBackColorDList::Memory allocation failed for new "
+                    "ColorDListNode !");
     exit(1);
   }
 
   colNode->nodeColor = col;
   colNode->prev = NULL;
   colNode->next = NULL;
-  
-  if (isColorDListEmpty(cli))
-  {
+
+  if (isColorDListEmpty(cli)) {
     cli = malloc(sizeof(*cli));
 
-    if (cli == NULL)
-    {
-      fprintf(stderr, "pushBackColorDList::Memory allocation failed for empty ColorDList !");
+    if (cli == NULL) {
+      fprintf(stderr, "pushBackColorDList::Memory allocation failed for empty "
+                      "ColorDList !");
       exit(1);
     }
-    
+
     // If dlist is empty : new node is the first and last element
     cli->begin = colNode;
     cli->end = colNode;
 
   } else {
-    // If dlist is not empty : Last dlist element next pointer now points to new node
+    // If dlist is not empty : Last dlist element next pointer now points to new
+    // node
     cli->end->next = colNode;
 
     // New node prev pointer now points to the previous last dlist element
     colNode->prev = cli->end;
-    
+
     // And dlist end now points to the new node
     cli->end = colNode;
   }
-  
+
   cli->length++;
 
   return cli;
 }
 
 // Function to pop an color node from given list end : see color_dlist.h
-ColorDList *popBackColorDList(ColorDList *cli)
-{
-  if (isColorDListEmpty(cli))
-  {
+ColorDList *popBackColorDList(ColorDList *cli) {
+  if (isColorDListEmpty(cli)) {
     printf("popBackColorDList::List is empty. Nothing to pop.\n");
     return newColorDList();
   }
-  
+
   // Check if the list contains only one element
-  if (cli->begin == cli->end)
-  {
+  if (cli->begin == cli->end) {
     free(cli);
     cli = NULL;
 
@@ -114,19 +106,15 @@ ColorDList *popBackColorDList(ColorDList *cli)
 }
 
 // Function to clear an color dlist content : see color_dlist.h
-ColorDList *clearColorDlist(ColorDList *cli)
-{
-  while(!isColorDListEmpty(cli))
-  {
+ColorDList *clearColorDlist(ColorDList *cli) {
+  while (!isColorDListEmpty(cli))
     cli = popBackColorDList(cli);
-  }
-  
+
   return newColorDList();
 }
 
 // Function to delete a color dlist : see color_dlist.h
-void deleteColorDList(ColorDList *cli)
-{
+void deleteColorDList(ColorDList *cli) {
   cli = clearColorDlist(cli);
   free(cli);
 }
