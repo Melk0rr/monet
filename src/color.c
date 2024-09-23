@@ -11,14 +11,14 @@
 
 // A function to create a new hex color : see color.h
 hex *newHexColor(const unsigned char *hexStr) {
-  hex *newColor = malloc(sizeof(*newColor));
-
   const size_t nmatch = 2;
   regmatch_t pmatch[nmatch + 1];
 
   int hexCheck = regCheck((char *)hexStr, HEXREG, nmatch, pmatch);
 
   if (hexCheck == 0) {
+    hex *newColor = malloc(sizeof(*newColor));
+
     char buf[256] = {0};
     strncpy(buf, (char *)hexStr + pmatch[1].rm_so,
             pmatch[1].rm_eo - pmatch[1].rm_so);
@@ -54,8 +54,6 @@ rgb *newRGBColor(const unsigned int r, const unsigned int g,
 
 // Function to extract RGB values from string : see color.h
 rgb *newRGBColorFromStr(const char *rgbStr) {
-  rgb *rgbCol;
-
   const size_t nmatch = 4;
   regmatch_t pmatch[nmatch + 1];
 
@@ -70,7 +68,7 @@ rgb *newRGBColorFromStr(const char *rgbStr) {
       rgbValues[i - 1] = atoi(buf);
     }
 
-    rgbCol = newRGBColor(rgbValues[0], rgbValues[1], rgbValues[2]);
+    rgb *rgbCol = newRGBColor(rgbValues[0], rgbValues[1], rgbValues[2]);
     return rgbCol;
 
   } else {
@@ -178,7 +176,7 @@ rgb *hex2RGB(hex *hexCol) {
 }
 
 hex *rgb2Hex(rgb *rgb) {
-  unsigned char *hexStr = (unsigned char *)malloc(6);
+  unsigned char hexStr[7];
   sprintf((char *)hexStr, "%02x%02x%02x", rgb->red, rgb->green, rgb->blue);
 
   return newHexColor(hexStr);
