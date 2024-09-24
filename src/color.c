@@ -90,7 +90,7 @@ color *newColor() {
 
 // Function to create a new color from color string : see color.h
 color *newColorFromStr(const char *colStr) {
-  color *newColor = malloc(sizeof(*newColor));
+  color *myCol = newColor();
 
   if (newColor == NULL) {
     fprintf(stderr, "newColorFromStr::Memory allocation failed for new color");
@@ -116,10 +116,11 @@ color *newColorFromStr(const char *colStr) {
     exit(0);
   }
 
-  newColor->hexValue = hexFromArg;
-  newColor->rgbValues = rgbFromArg;
+  myCol->hexValue = hexFromArg;
+  myCol->rgbValues = rgbFromArg;
+  printf("%s\n", myCol->hexValue->code);
 
-  return newColor;
+  return myCol;
 }
 
 // A function to create a new HSL tuple : see color.h

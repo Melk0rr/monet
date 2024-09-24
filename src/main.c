@@ -52,6 +52,10 @@ int main(int argc, char *argv[]) {
       color *c = newColorFromStr(optarg);
       colors = pushBackColorDList(colors, c);
 
+      // for (int i = 0; i < strlen((const char *)c->hexValue->code); i++) {
+      //   printf("%d = %c", i, c->hexValue->code[i]);
+      // }
+
       printColor(c);
       break;
 
