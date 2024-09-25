@@ -92,7 +92,7 @@ color *newColor() {
 color *newColorFromStr(const char *colStr) {
   color *myCol = newColor();
 
-  if (newColor == NULL) {
+  if (myCol == NULL) {
     fprintf(stderr, "newColorFromStr::Memory allocation failed for new color");
     exit(0);
   }
@@ -118,7 +118,6 @@ color *newColorFromStr(const char *colStr) {
 
   myCol->hexValue = hexFromArg;
   myCol->rgbValues = rgbFromArg;
-  printf("%s\n", myCol->hexValue->code);
 
   return myCol;
 }
