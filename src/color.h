@@ -24,9 +24,9 @@ typedef struct hex
  */
 typedef struct rgb
 {
-  unsigned int red;
-  unsigned int green;
-  unsigned int blue;
+  unsigned char red;
+  unsigned char green;
+  unsigned char blue;
 
 } rgb;
 
@@ -41,7 +41,7 @@ typedef struct hsl
   float lightness;
 } hsl;
 
-typedef union color
+typedef struct color
 {
   hex *hexValue;
   rgb *rgbValues;
