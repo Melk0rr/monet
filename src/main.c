@@ -77,17 +77,6 @@ int main(int argc, char *argv[]) {
     putchar('\n');
   }
 
-  // printf("%s", colors);
-
-  // const unsigned char hexCode[] = "#0afea4";
-  // hex *myColor = newHexColor(hexCode);
-
-  // const unsigned char hexCode1[] = "#A36E65";
-  // hex *myColor1 = newHexColor(hexCode1);
-
-  // float colDistance = getHexBasicColorDistance(myColor,
-  // setHexColorSaturation(myColor1, 1)); printf("Distance: %f", colDistance);
-
   deleteColorDList(colors);
   return 0;
 }
