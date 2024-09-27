@@ -166,9 +166,7 @@ float *rgbPercentages(rgb *rgb) {
 
 // A function to convert a hex color into an RGB one : see color.h
 rgb *hex2RGB(hex *hexCol) {
-  int r, g, b;
-  sscanf((const char *)hexCol->code, "%02x%02x%02x", &r, &g, &b);
-  return newRGBColor(r, g, b);
+  return newRGBColor((hexCol->code >> 16) & 0xFF, (hexCol->code >> 8) & 0xFF, hexCol->code & 0xFF);
 }
 
 hex *rgb2Hex(rgb *rgb) {
