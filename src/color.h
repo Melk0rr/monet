@@ -15,7 +15,7 @@ static const char RGBREG[] = "([0-9]{1,3}), ?([0-9]{1,3}), ?([0-9]{1,3})";
  */
 typedef struct hex
 {
-  unsigned char code[7];
+  int code;
 } hex;
 
 /**

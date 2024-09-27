@@ -23,11 +23,7 @@ hex *newHexColor(const unsigned char *hexStr) {
     strncpy(buf, (char *)hexStr + pmatch[1].rm_so,
             pmatch[1].rm_eo - pmatch[1].rm_so);
 
-    int hexLen = strlen(buf);
-    for (int i = 0; i < hexLen; i++)
-      newColor->code[i] = buf[i];
-
-    newColor->code[hexLen] = '\0';
+    newColor->code = strtol(buf, NULL, 16);
 
     return newColor;
 
@@ -322,7 +318,7 @@ float getHexBasicColorDistance(hex *hexColor1, hex *hexColor2) {
 }
 
 // Prints Hex color value : see color.h
-void printHexValue(hex *hexColor) { printf("#%s\n", hexColor->code); }
+void printHexValue(hex *hexColor) { printf("#%x\n", hexColor->code); }
 
 // Prints RGB values : see color.h
 void printRGBValues(rgb *rgbColor) {
@@ -336,6 +332,6 @@ void printHSLValues(hsl *hslTuple) {
 }
 
 void printColor(color *col) {
-  printf("Color hex: #%s, color RGB: (%d,%d,%d)\n", col->hexValue->code,
+  printf("Color hex: #%x, color RGB: (%d,%d,%d)\n", col->hexValue->code,
          col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
 }
