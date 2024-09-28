@@ -304,6 +304,32 @@ hex *setHexColorSaturation(hex *baseColor, float saturation) {
   return rgb2Hex(newRGB);
 }
 
+// Function to change saturation of given color : see color.h
+color *saturateColor(color *c, float saturation)
+{
+  // Step 0 : limit saturation value
+  float newSaturation = MAX(MIN(1, saturation), 0);
+  
+  // Step 1 : create new HSL with old hue and lightness + change saturation
+  hsl *newHSL = newHSLTuple(c->hslValues->hue, newSaturation, c->hslValues->lightness);
+  
+  // Step 2 : create new rgb and hex values based on new hsl
+  rgb *newRGB = hsl2RGB(newHSL);
+  hex *newHex = rgb2Hex(newRGB);
+  
+  // Step 3 : free old values
+  free(c->hexValue);
+  free(c->rgbValues);
+  free(c->hslValues);
+
+  // Step 4 : set new values
+  c->hexValue = newHex;
+  c->rgbValues = newRGB;
+  c->hslValues = newHSL;
+  
+  return c;
+}
+
 // A function to calculates a basic distance between two colors : see color.h
 float getHexBasicColorDistance(hex *hexColor1, hex *hexColor2) {
   rgb *rgbColor1 = hex2RGB(hexColor1);
