@@ -163,14 +163,6 @@ hsl *rgb2HSL(rgb *rgb);
 rgb *hsl2RGB(hsl *hsl);
 
 /**
- * @brief Cleans an rgb string of unwanted characters
- * 
- * @param rgbStr {char *} : string to clean
- * @return char* : cleaned string
- */
-char *cleanRGBString(char *rgbStr);
-
-/**
  * @brief Change saturation of given color 
  * 
  * @param c {color} : color to saturate

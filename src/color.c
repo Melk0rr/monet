@@ -242,9 +242,7 @@ rgb *hsl2RGB(hsl *hsl) {
   float tmp2 = 2 * hsl->lightness - tmp1;
   float newHue = hsl->hue / 360;
 
-  float tmpRed = newHue + .333;
-  float tmpGreen = newHue;
-  float tmpBlue = newHue - .333;
+  float tmpRed = newHue + .333, tmpGreen = newHue, tmpBlue = newHue - .333;
 
   float tmpArr[3] = {tmpRed, tmpGreen, tmpBlue};
   float rgb[3];
@@ -271,22 +269,6 @@ rgb *hsl2RGB(hsl *hsl) {
   }
 
   return newRGBColor(rgb[0] * 255 + 1, rgb[1] * 255 + 1, rgb[2] * 255);
-}
-
-// Function to clean rgb string from unwanted characters : see color.h
-char *cleanRGBString(char *rgbStr) {
-  char *cleaned;
-  int hexStrLen = strlen(rgbStr);
-
-  printf("RGB len: %d\n", hexStrLen);
-  unsigned int i = 0;
-  for (; i < hexStrLen; i++) {
-    if (rgbStr[i] != '(' && rgbStr[i] != ')' && rgbStr[i] != ' ')
-      cleaned[i] = rgbStr[i];
-  }
-  cleaned[i + 1] = '\0';
-
-  return cleaned;
 }
 
 // Function to change saturation of given color : see color.h
