@@ -105,6 +105,33 @@ ColorDList *popBackColorDList(ColorDList *cli) {
   return cli;
 }
 
+// Function to find a color in a color dlist based on index : see color_dlist.h
+color *findColorByIndex(ColorDList *cli, int index)
+{
+  if (isColorDListEmpty(cli))
+  {
+    printf("findColorByIndex::List is empty, nothing to return");
+    return NULL;
+  }
+  
+  ColorDListNode *temp = cli->begin;
+  int i = 0;
+  
+  while (temp != NULL && i <= index)
+  {
+    if (i == index)
+    {
+      return temp->nodeColor;
+      
+    } else
+    {
+      temp = temp->next;
+    }
+  }
+
+  return NULL;
+}
+
 // Function to clear an color dlist content : see color_dlist.h
 ColorDList *clearColorDlist(ColorDList *cli) {
   while (!isColorDListEmpty(cli))
