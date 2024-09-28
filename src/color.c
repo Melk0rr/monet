@@ -167,7 +167,11 @@ float *rgbPercentages(rgb *rgb) {
 
 // A function to convert a hex color into an RGB one : see color.h
 rgb *hex2RGB(hex *hexCol) {
-  return newRGBColor((hexCol->code >> 16) & 0xFF, (hexCol->code >> 8) & 0xFF, hexCol->code & 0xFF);
+  return newRGBColor(
+    (hexCol->code >> 16) & 0xFF,
+    (hexCol->code >> 8) & 0xFF,
+    hexCol->code & 0xFF
+  );
 }
 
 hex *rgb2Hex(rgb *rgb) {
@@ -181,9 +185,7 @@ hex *rgb2Hex(rgb *rgb) {
 hsl *rgb2HSL(rgb *rgb) {
   float *perc = rgbPercentages(rgb);
 
-  float redPerc = perc[0];
-  float greenPerc = perc[1];
-  float bluePerc = perc[2];
+  float redPerc = perc[0], greenPerc = perc[1], bluePerc = perc[2];
 
   float minRGB = MIN(MIN(redPerc, greenPerc), bluePerc);
   float maxRGB = MAX(MAX(redPerc, greenPerc), bluePerc);
@@ -263,13 +265,8 @@ rgb *hsl2RGB(hsl *hsl) {
       if ((2 * tmpV) < 1)
         rgb[i] = tmp1;
 
-      else {
-        if ((3 * tmpV) < 2)
-          rgb[i] = tmp2 + (tmp1 - tmp2) * (.666 - tmpV) * 6;
-
-        else
-          rgb[i] = tmp2;
-      }
+      else
+        rgb[i] = ((3 * tmpV) < 2) ? tmp2 + (tmp1 - tmp2) * (.666 - tmpV) * 6 : tmp2;
     }
   }
 
@@ -345,6 +342,7 @@ void printHSLValues(hsl *hslTuple) {
 }
 
 void printColor(color *col) {
-  printf("Color hex: #%x, color RGB: (%d,%d,%d)\n", col->hexValue->code,
-         col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
+  printf("\nColor Hex: #%x\n", col->hexValue->code);
+  printf("Color RGB: (%d,%d,%d)\n", col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
+  printf("Color HSL: (%f,%f,%f)\n", col->hslValues->hue, col->hslValues->saturation, col->hslValues->lightness);
 }
