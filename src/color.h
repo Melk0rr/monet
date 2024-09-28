@@ -45,6 +45,7 @@ typedef struct color
 {
   hex *hexValue;
   rgb *rgbValues;
+  hsl *hslValues;
 } color;
 
 // #########################################################
