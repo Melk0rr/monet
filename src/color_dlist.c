@@ -127,6 +127,7 @@ color *findColorByIndex(ColorDList *cli, int index)
     {
       temp = temp->next;
     }
+    i++;
   }
 
   return NULL;
