@@ -16,53 +16,64 @@ int main(int argc, char *argv[]) {
 
   static struct option longOptions[] = {
       {"color", required_argument, 0, 'c'},
-      {"saturate", required_argument, 0, 's'},
-      {"distance", required_argument, 0, 'd'},
-      {"verbose", no_argument, &verbose_flag, 'v'},
+      {"distance", no_argument, 0, 'd'},
       {"help", no_argument, 0, 'H'},
+      {"info", optional_argument, 0, 'i'},
+      {"saturate", required_argument, 0, 's'},
+      {"verbose", no_argument, &verbose_flag, 'v'},
   };
 
   ColorDList *colors = newColorDList();
   float saturation;
 
-  enum { SATURATE, HEX2RGB, RGB2HEX, DISTANCE } mode;
+  // Program modes
+  enum mode { DISTANCE, INFO, SATURATE } m;
 
-  while ((opt = getopt_long(argc, argv, "c:s:d:vH", longOptions,
-                            &optionIndex)) != -1) {
+  // Handling options
+  while ((opt = getopt_long(argc, argv, "c:s:dvH", longOptions,
+                            &optionIndex)) != -1) 
+  {
+    color *c;
+
     switch (opt) {
-    case 0:
-      if (longOptions[optionIndex].flag != 0)
+      case 0:
+        if (longOptions[optionIndex].flag != 0)
+          break;
+
+        printf("Option %s", longOptions[optionIndex].name);
+
+        if (optarg)
+          printf(" with arg %s", optarg);
+
+        printf("\n");
         break;
 
-      printf("Option %s", longOptions[optionIndex].name);
+      case 'c':
+        // New color
+        c = newColorFromStr(optarg);
+        colors = pushBackColorDList(colors, c);
 
-      if (optarg)
-        printf(" with arg %s", optarg);
+        break;
 
-      printf("\n");
-      break;
+      case 'd':
+        m = DISTANCE;
+        break;
 
-    case 'd':
-      printf("option -d with value `%s'\n", optarg);
-      break;
+      case 'i':
+        m = INFO;
+        break;
 
-    case 'c':
-      // New color
-      color *c = newColorFromStr(optarg);
-      colors = pushBackColorDList(colors, c);
+      case 'H':
+        break;
 
-      break;
+      case 's':
+        m = SATURATE;
+        saturation = atof(optarg);
+        
+        break;
 
-    case 'H':
-      break;
-
-    case 's':
-      saturation = atof(optarg);
-      
-      break;
-
-    default:
-      abort();
+      default:
+        abort();
     }
   }
 
@@ -75,6 +86,44 @@ int main(int argc, char *argv[]) {
       printf("%s ", argv[optind++]);
 
     putchar('\n');
+  }
+  
+  // Mode actions
+  switch (m) {
+    case 0:
+      if (colors->length < 2)
+      {
+        fprintf(stderr, "Not enough colors provided !");
+      }
+      
+      if (colors->begin != NULL && colors->begin->next != NULL)
+      {
+        color *c1 = colors->begin->nodeColor;
+        color *c2 = colors->begin->next->nodeColor;
+
+        float dist = getBasicColorDistance(c1, c2);
+        printf("%f", dist);
+      }
+
+      break;
+
+    case 1:
+      printColor(colors->begin->nodeColor);
+      break;
+      
+    case 2:
+      if (isColorDListEmpty(colors))
+      {
+        fprintf(stderr, "No color provided");
+        exit(1);
+      }
+
+      color *saturated = changeColorSaturation(colors->begin->nodeColor, saturation);
+      printf("#%x", saturated->hexValue->code);
+      break;
+    
+    default:
+      abort();  
   }
 
   deleteColorDList(colors);
