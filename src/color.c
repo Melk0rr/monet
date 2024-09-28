@@ -114,6 +114,7 @@ color *newColorFromStr(const char *colStr) {
 
   myCol->hexValue = hexFromArg;
   myCol->rgbValues = rgbFromArg;
+  myCol->hslValues = rgb2HSL(rgbFromArg);
 
   return myCol;
 }
