@@ -305,7 +305,7 @@ hex *setHexColorSaturation(hex *baseColor, float saturation) {
 }
 
 // Function to change saturation of given color : see color.h
-color *saturateColor(color *c, float saturation)
+color *changeColorSaturation(color *c, float saturation)
 {
   // Step 0 : limit saturation value
   float newSaturation = MAX(MIN(1, saturation), 0);

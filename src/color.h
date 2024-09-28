@@ -186,7 +186,7 @@ hex *setHexColorSaturation(hex *baseColor, float saturation);
  * @param saturation {float} : saturation to set
  * @return color* : new color based on base color and saturation
  */
-color *saturateColor(color *c, float saturation);
+color *changeColorSaturation(color *c, float saturation);
 
 /**
  * @brief Returns an array of RGB percentages
