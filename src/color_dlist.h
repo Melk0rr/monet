@@ -65,6 +65,23 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col);
 ColorDList *popBackColorDList(ColorDList *cli);
 
 /**
+ * @brief Finds a color in a color dlist based on index
+ * 
+ * @param cli {ColorDList} : color dlist to explore
+ * @param index {int} : index of the color to find
+ * @return color* : color to find
+ */
+color *findColorByIndex(ColorDList *cli, int index);
+
+/**
+ * @brief Clear color dlist content
+ * 
+ * @param cli {ColorDList} : color dlist to clear
+ * @return ColorDList* : emptied color dlist
+ */
+ColorDList *clearColorDlist(ColorDList *cli);
+
+/**
  * @brief Deletes a color dlist
  * 
  * @param cli {ColorDList} : color dlist to delete
