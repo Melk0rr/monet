@@ -172,21 +172,13 @@ rgb *hsl2RGB(hsl *hsl);
 color *changeColorSaturation(color *c, float saturation);
 
 /**
- * @brief Returns an array of RGB percentages
- * 
- * @param rgb {rgb} : rgb target
- * @return float* : array of percentages
- */
-float *rgbPercentages(rgb *rgb);
-
-/**
  * @brief Calculates the distance between two hex colors
  * 
- * @param hexColor1 {hex} : first hex color
- * @param hexColor2 {hex} : second hex color
+ * @param hexColor1 {color} : first color
+ * @param hexColor2 {color} : second color
  * @return {float} : distance
  */
-float getHexBasicColorDistance(hex *hexColor1, hex *hexColor2);
+float getBasicColorDistance(color *c1, color *c2);
 
 /**
  * @brief Prints Hex value
