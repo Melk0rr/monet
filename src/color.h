@@ -171,13 +171,22 @@ rgb *hsl2RGB(hsl *hsl);
 char *cleanRGBString(char *rgbStr);
 
 /**
- * @brief Maxes a color saturation
+ * @brief Change saturation of hex color
  * 
  * @param baseColor {hex} : hex color to which max the saturation
  * @param saturation {float} : saturation value to set (0 <= v <= 1)
  * @return hex* {hex} : new hex color
  */
 hex *setHexColorSaturation(hex *baseColor, float saturation);
+
+/**
+ * @brief Change saturation of given color 
+ * 
+ * @param c {color} : color to saturate
+ * @param saturation {float} : saturation to set
+ * @return color* : new color based on base color and saturation
+ */
+color *saturateColor(color *c, float saturation);
 
 /**
  * @brief Returns an array of RGB percentages
