@@ -154,17 +154,6 @@ bool checkSLValue(const float value) {
   return check;
 }
 
-// Function to get percentages repartition of RGB values
-float *rgbPercentages(rgb *rgb) {
-  float *perc = malloc(3 * sizeof(*perc));
-
-  perc[0] = (float)rgb->red / 255;
-  perc[1] = (float)rgb->green / 255;
-  perc[2] = (float)rgb->blue / 255;
-
-  return perc;
-}
-
 // A function to convert a hex color into an RGB one : see color.h
 rgb *hex2RGB(hex *hexCol) {
   return newRGBColor(
@@ -183,26 +172,18 @@ hex *rgb2Hex(rgb *rgb) {
 
 // A function to get HSL values from RGB
 hsl *rgb2HSL(rgb *rgb) {
-  float *perc = rgbPercentages(rgb);
-
+  float perc[3] = { (float)rgb->red / 255, (float)rgb->green / 255, (float)rgb->blue / 255 };
   float redPerc = perc[0], greenPerc = perc[1], bluePerc = perc[2];
 
-  float minRGB = MIN(MIN(redPerc, greenPerc), bluePerc);
-  float maxRGB = MAX(MAX(redPerc, greenPerc), bluePerc);
+  float minRGB = MIN(MIN(redPerc, greenPerc), bluePerc),
+        maxRGB = MAX(MAX(redPerc, greenPerc), bluePerc);
 
   // Lightness
   float l = (minRGB + maxRGB) / 2;
 
   // Saturation
-  float s;
-  if (minRGB == maxRGB)
-    s = 0;
-
-  else if (l < 0.5)
-    s = (maxRGB - minRGB) / (maxRGB + minRGB);
-
-  else
-    s = (maxRGB - minRGB) / (2 - maxRGB - minRGB);
+  float s = (minRGB == maxRGB) ? 0 :
+    (l < .5) ? (maxRGB - minRGB) / (maxRGB + minRGB) : (maxRGB - minRGB) / (2 - maxRGB - minRGB);
 
   // Hue
   float h;
@@ -233,19 +214,17 @@ rgb *hsl2RGB(hsl *hsl) {
                        hsl->lightness * 255);
 
   float tmp1;
-  if (hsl->lightness < 0.5)
-    tmp1 = hsl->lightness * (1 + hsl->saturation);
-
-  else
-    tmp1 = hsl->lightness + hsl->saturation - hsl->lightness * hsl->saturation;
+  tmp1 = (hsl->lightness < .5) ? 
+    hsl->lightness * (1 + hsl->saturation) : 
+    hsl->lightness + hsl->saturation - hsl->lightness * hsl->saturation;
 
   float tmp2 = 2 * hsl->lightness - tmp1;
   float newHue = hsl->hue / 360;
 
   float tmpRed = newHue + .333, tmpGreen = newHue, tmpBlue = newHue - .333;
 
-  float tmpArr[3] = {tmpRed, tmpGreen, tmpBlue};
-  float rgb[3];
+  float tmpArr[3] = {tmpRed, tmpGreen, tmpBlue},
+        rgb[3];
 
   for (int i = 0; i < 3; i++) {
     float tmpV = tmpArr[i];
@@ -298,15 +277,12 @@ color *changeColorSaturation(color *c, float saturation)
 }
 
 // A function to calculates a basic distance between two colors : see color.h
-float getHexBasicColorDistance(hex *hexColor1, hex *hexColor2) {
-  rgb *rgbColor1 = hex2RGB(hexColor1);
-  rgb *rgbColor2 = hex2RGB(hexColor2);
+float getBasicColorDistance(color *c1, color *c2) {
+  float rc = pow(c1->rgbValues->red - c2->rgbValues->red, 2),
+        gc = pow(c1->rgbValues->green - c2->rgbValues->green, 2),
+        bc = pow(c1->rgbValues->blue - c2->rgbValues->blue, 2);
 
-  float rc = pow(rgbColor1->red - rgbColor2->red, 2);
-  float gc = pow(rgbColor1->green - rgbColor2->green, 2);
-  float bc = pow(rgbColor1->blue - rgbColor2->blue, 2);
-
-  return sqrt(rc + gc + bc) / sqrt(pow(255, 2) + pow(255, 2) + pow(255, 2));
+  return sqrt(rc + gc + bc) / sqrt(pow(255, 2) * 3);
 }
 
 // Prints Hex color value : see color.h
