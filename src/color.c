@@ -292,18 +292,6 @@ char *cleanRGBString(char *rgbStr) {
   return cleaned;
 }
 
-// A function to set the given color saturation : see color.h
-hex *setHexColorSaturation(hex *baseColor, float saturation) {
-  rgb *baseRGB = hex2RGB(baseColor);
-  hsl *baseHSL = rgb2HSL(baseRGB);
-
-  float newSaturation = MAX(MIN(1, saturation), 0);
-  hsl *newHSL = newHSLTuple(baseHSL->hue, newSaturation, baseHSL->lightness);
-  rgb *newRGB = hsl2RGB(newHSL);
-
-  return rgb2Hex(newRGB);
-}
-
 // Function to change saturation of given color : see color.h
 color *changeColorSaturation(color *c, float saturation)
 {
