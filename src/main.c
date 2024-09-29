@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   float saturation;
 
   // Program modes
-  enum mode { DISTANCE, INFO, SATURATE } m;
+  enum mode { INFO, DISTANCE, SATURATE } m;
 
   // Handling options
   while ((opt = getopt_long(argc, argv, "c:s:dvH", longOptions,
@@ -88,9 +88,16 @@ int main(int argc, char *argv[]) {
     putchar('\n');
   }
   
+  if (isColorDListEmpty(colors))
+  {
+    fprintf(stderr, "No color provided");
+    exit(1);
+  }
+
   // Mode actions
+  color *saturated;
   switch (m) {
-    case 0:
+    case 1:
       if (colors->length < 2)
       {
         fprintf(stderr, "Not enough colors provided !");
@@ -106,24 +113,14 @@ int main(int argc, char *argv[]) {
       }
 
       break;
-
-    case 1:
-      printColor(colors->begin->nodeColor);
-      break;
       
     case 2:
-      if (isColorDListEmpty(colors))
-      {
-        fprintf(stderr, "No color provided");
-        exit(1);
-      }
-
-      color *saturated = changeColorSaturation(colors->begin->nodeColor, saturation);
+      saturated = changeColorSaturation(colors->begin->nodeColor, saturation);
       printf("#%x", saturated->hexValue->code);
       break;
     
     default:
-      abort();  
+      printColor(colors->begin->nodeColor);
   }
 
   deleteColorDList(colors);
