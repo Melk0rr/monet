@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
       
     case 2:
       saturated = changeColorSaturation(colors->begin->nodeColor, saturation);
-      printf("#%x", saturated->hexValue->code);
+      printf("#%06x", saturated->hexValue->code);
       break;
     
     default:

@@ -328,7 +328,7 @@ void printHSLValues(hsl *hslTuple)
 
 void printColor(color *col)
 {
-  printf("\nColor Hex: #%x\n", col->hexValue->code);
+  printf("\nColor Hex: #%06x\n", col->hexValue->code);
   printf("Color RGB: (%d,%d,%d)\n", col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
   printf("Color HSL: (%f,%f,%f)\n", col->hslValues->hue, col->hslValues->saturation, col->hslValues->lightness);
 }
