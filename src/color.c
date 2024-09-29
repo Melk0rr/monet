@@ -10,7 +10,8 @@
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 // A function to create a new hex color : see color.h
-hex *newHexColor(const unsigned char *hexStr) {
+hex *newHexColor(const unsigned char *hexStr)
+{
   const size_t nmatch = 2;
   regmatch_t pmatch[nmatch + 1];
 
@@ -37,7 +38,7 @@ rgb *newRGBColor(const unsigned int r, const unsigned int g,
   rgb *newColor = malloc(sizeof(*newColor));
 
   if (!checkRGBValue(r) || !checkRGBValue(g) || !checkRGBValue(b)) {
-    fprintf(stderr, "newRGBColor::Invalid RGB value provided !");
+    fprintf(stderr, "newRGBColor::Invalid RGB value provided : %d,%d,%d\n", r, g, b);
     return NULL;
   }
 
@@ -49,7 +50,8 @@ rgb *newRGBColor(const unsigned int r, const unsigned int g,
 }
 
 // Function to extract RGB values from string : see color.h
-rgb *newRGBColorFromStr(const char *rgbStr) {
+rgb *newRGBColorFromStr(const char *rgbStr)
+{
   const size_t nmatch = 4;
   regmatch_t pmatch[nmatch + 1];
 
@@ -73,7 +75,8 @@ rgb *newRGBColorFromStr(const char *rgbStr) {
 }
 
 // Function to create a new color : see color.h
-color *newColor() {
+color *newColor()
+{
   color *c = malloc(sizeof(*c));
 
   if (c != NULL) {
@@ -85,7 +88,8 @@ color *newColor() {
 }
 
 // Function to create a new color from color string : see color.h
-color *newColorFromStr(const char *colStr) {
+color *newColorFromStr(const char *colStr)
+{
   color *myCol = newColor();
 
   if (myCol == NULL) {
@@ -120,11 +124,12 @@ color *newColorFromStr(const char *colStr) {
 }
 
 // A function to create a new HSL tuple : see color.h
-hsl *newHSLTuple(const float h, const float s, const float l) {
+hsl *newHSLTuple(const float h, const float s, const float l)
+{
   hsl *newHSL = malloc(sizeof(*newHSL));
 
-  if (!checkRGBValue(h) || !checkSLValue(s) || !checkSLValue(l)) {
-    fprintf(stderr, "newHSLTuple::Invalid HSL value provided !");
+  if (!checkHueValue(h) || !checkSLValue(s) || !checkSLValue(l)) {
+    fprintf(stderr, "newHSLTuple::Invalid HSL value provided: %f,%f,%f\n", h, s, l);
     return NULL;
   }
 
@@ -136,7 +141,8 @@ hsl *newHSLTuple(const float h, const float s, const float l) {
 }
 
 // A function to check if the given value is a valid RGB value : see color.h
-bool checkRGBValue(const float value) {
+bool checkRGBValue(const float value)
+{
   bool check = false;
   if (value >= 0 && value <= 255)
     check = true;
@@ -144,9 +150,21 @@ bool checkRGBValue(const float value) {
   return check;
 }
 
-// A function to check if the given Saturation / Lightness value are valid : see
-// color.h
-bool checkSLValue(const float value) {
+// Function to check if hue value is valid : see color.h
+bool checkHueValue(const float value)
+{
+  bool check = false;
+  if (value >= 0 && value <=360)
+  {
+    check = true;
+  }
+  
+  return check;
+}
+
+// A function to check if the given Saturation / Lightness value are valid : see color.h
+bool checkSLValue(const float value)
+{
   bool check = false;
   if (value >= 0 && value <= 1)
     check = true;
@@ -155,7 +173,8 @@ bool checkSLValue(const float value) {
 }
 
 // A function to convert a hex color into an RGB one : see color.h
-rgb *hex2RGB(hex *hexCol) {
+rgb *hex2RGB(hex *hexCol)
+{
   return newRGBColor(
     (hexCol->code >> 16) & 0xFF,
     (hexCol->code >> 8) & 0xFF,
@@ -163,7 +182,8 @@ rgb *hex2RGB(hex *hexCol) {
   );
 }
 
-hex *rgb2Hex(rgb *rgb) {
+hex *rgb2Hex(rgb *rgb)
+{
   unsigned char hexStr[7];
   sprintf((char *)hexStr, "%02x%02x%02x", rgb->red, rgb->green, rgb->blue);
 
@@ -171,7 +191,8 @@ hex *rgb2Hex(rgb *rgb) {
 }
 
 // A function to get HSL values from RGB
-hsl *rgb2HSL(rgb *rgb) {
+hsl *rgb2HSL(rgb *rgb)
+{
   float perc[3] = { (float)rgb->red / 255, (float)rgb->green / 255, (float)rgb->blue / 255 };
   float redPerc = perc[0], greenPerc = perc[1], bluePerc = perc[2];
 
@@ -208,7 +229,8 @@ hsl *rgb2HSL(rgb *rgb) {
 }
 
 // A function to get RGB values from HSL
-rgb *hsl2RGB(hsl *hsl) {
+rgb *hsl2RGB(hsl *hsl)
+{
   if (hsl->saturation == 0)
     return newRGBColor(hsl->hue * 255, hsl->saturation * 255,
                        hsl->lightness * 255);
@@ -247,7 +269,7 @@ rgb *hsl2RGB(hsl *hsl) {
     }
   }
 
-  return newRGBColor(rgb[0] * 255 + 1, rgb[1] * 255 + 1, rgb[2] * 255);
+  return newRGBColor(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
 }
 
 // Function to change saturation of given color : see color.h
@@ -277,7 +299,8 @@ color *changeColorSaturation(color *c, float saturation)
 }
 
 // A function to calculates a basic distance between two colors : see color.h
-float getBasicColorDistance(color *c1, color *c2) {
+float getBasicColorDistance(color *c1, color *c2)
+{
   float rc = pow(c1->rgbValues->red - c2->rgbValues->red, 2),
         gc = pow(c1->rgbValues->green - c2->rgbValues->green, 2),
         bc = pow(c1->rgbValues->blue - c2->rgbValues->blue, 2);
@@ -286,7 +309,10 @@ float getBasicColorDistance(color *c1, color *c2) {
 }
 
 // Prints Hex color value : see color.h
-void printHexValue(hex *hexColor) { printf("#%x\n", hexColor->code); }
+void printHexValue(hex *hexColor) 
+{
+  printf("#%x\n", hexColor->code);
+}
 
 // Prints RGB values : see color.h
 void printRGBValues(rgb *rgbColor) {
@@ -294,12 +320,14 @@ void printRGBValues(rgb *rgbColor) {
 }
 
 // Prints HSL values : see color.h
-void printHSLValues(hsl *hslTuple) {
+void printHSLValues(hsl *hslTuple)
+{
   printf("(%f,%f,%f)\n", hslTuple->hue, hslTuple->saturation,
          hslTuple->lightness);
 }
 
-void printColor(color *col) {
+void printColor(color *col)
+{
   printf("\nColor Hex: #%x\n", col->hexValue->code);
   printf("Color RGB: (%d,%d,%d)\n", col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
   printf("Color HSL: (%f,%f,%f)\n", col->hslValues->hue, col->hslValues->saturation, col->hslValues->lightness);
