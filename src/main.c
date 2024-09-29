@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
   enum mode { INFO, DISTANCE, SATURATE } m;
 
   // Handling options
-  while ((opt = getopt_long(argc, argv, "c:s:dvH", longOptions,
+  while ((opt = getopt_long(argc, argv, "c:s:dvHi", longOptions,
                             &optionIndex)) != -1) 
   {
     color *c;
