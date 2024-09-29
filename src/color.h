@@ -112,6 +112,15 @@ hsl *newHSLTuple(const float h, const float s, const float l);
 bool checkRGBValue(const float value);
 
 /**
+ * @brief Checks if the given hue value is valid
+ * 
+ * @param value {const float} : hue value
+ * @return true {bool} : the value is valid
+ * @return false {bool} : the value is not valid
+ */
+bool checkHueValue(const float value);
+
+/**
  * @brief Checks if the given Saturation / Lightness value is valid
  * 
  * @param value {float} : value to check
