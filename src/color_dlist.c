@@ -161,6 +161,7 @@ void printColorDList(ColorDList *cli)
     while(temp != NULL)
     {
       printColor(temp->nodeColor, HEX_FLAG | RGB_FLAG | HSL_FLAG);
+      printf("\n");
       
       temp = temp->next;
     }
