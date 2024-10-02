@@ -74,12 +74,21 @@ ColorDList *popBackColorDList(ColorDList *cli);
 color *findColorByIndex(ColorDList *cli, int index);
 
 /**
+ * @brief Change saturation of each color in dlist
+ * 
+ * @param cli {ColorDList} : dlist to change color saturation from
+ * @param saturation {float} : saturation to set to colors
+ */
+void changeDListColorSaturation(ColorDList *cli, float saturation);
+
+/**
  * @brief Clear color dlist content
  * 
  * @param cli {ColorDList} : color dlist to clear
  * @return ColorDList* : emptied color dlist
  */
 ColorDList *clearColorDlist(ColorDList *cli);
+
 
 /**
  * @brief Deletes a color dlist
