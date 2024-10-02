@@ -6,7 +6,6 @@
 
 #include "color.h"
 #include "color_dlist.h"
-#include "utils.h"
 
 static int verbose_flag = 0;
 
