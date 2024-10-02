@@ -145,6 +145,7 @@ void changeDListColorSaturation(ColorDList *cli, float saturation)
       color *saturated = changeColorSaturation(temp->nodeColor, saturation);
       temp->nodeColor = saturated;
       
+      printColor(saturated, HEX_FLAG);
       temp = temp->next;
     }
   }
@@ -159,7 +160,7 @@ void printColorDList(ColorDList *cli)
     
     while(temp != NULL)
     {
-      printColor(temp->nodeColor);
+      printColor(temp->nodeColor, HEX_FLAG | RGB_FLAG | HSL_FLAG);
       
       temp = temp->next;
     }

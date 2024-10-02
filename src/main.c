@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
       break;
     
     default:
-      printColor(colors->begin->nodeColor);
+      printColor(colors->begin->nodeColor, HEX_FLAG | RGB_FLAG | HSL_FLAG);
   }
 
   deleteColorDList(colors);
