@@ -81,6 +81,14 @@ color *findColorByIndex(ColorDList *cli, int index);
  */
 void changeDListColorSaturation(ColorDList *cli, float saturation);
 
+
+/**
+ * @brief Prints colors in dlist
+ * 
+ * @param cli {ColorDList} : color dlist to print
+ */
+void printColorDList(ColorDList *cli);
+
 /**
  * @brief Clear color dlist content
  * 
