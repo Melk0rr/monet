@@ -133,6 +133,23 @@ color *findColorByIndex(ColorDList *cli, int index)
   return NULL;
 }
 
+// Function to change saturation of all colors in dlist : see color_dlist.h
+void changeDListColorSaturation(ColorDList *cli, float saturation)
+{
+  if (!isColorDListEmpty(cli))
+  {
+    ColorDListNode *temp = cli->begin;
+    
+    while(temp != NULL)    
+    {
+      color *saturated = changeColorSaturation(temp->nodeColor, saturation);
+      temp->nodeColor = saturated;
+      
+      temp = temp->next;
+    }
+  }
+}
+
 // Function to clear an color dlist content : see color_dlist.h
 ColorDList *clearColorDlist(ColorDList *cli) {
   while (!isColorDListEmpty(cli))
