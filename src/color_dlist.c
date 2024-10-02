@@ -150,6 +150,22 @@ void changeDListColorSaturation(ColorDList *cli, float saturation)
   }
 }
 
+// Function to print colors in a color dlist
+void printColorDList(ColorDList *cli)
+{
+  if (!isColorDListEmpty(cli))
+  {
+    ColorDListNode *temp = cli->begin;
+    
+    while(temp != NULL)
+    {
+      printColor(temp->nodeColor);
+      
+      temp = temp->next;
+    }
+  }
+}
+
 // Function to clear an color dlist content : see color_dlist.h
 ColorDList *clearColorDlist(ColorDList *cli) {
   while (!isColorDListEmpty(cli))
