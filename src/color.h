@@ -43,12 +43,26 @@ typedef struct hsl
   float lightness;
 } hsl;
 
+/**
+ * @brief Color structure to handle all color aspects
+ * 
+ */
 typedef struct color
 {
   hex *hexValue;
   rgb *rgbValues;
   hsl *hslValues;
 } color;
+
+/**
+ * @brief Color bit flag
+ * 
+ */
+typedef enum {
+  HEX_FLAG = (1 << 0),
+  RGB_FLAG = (1 << 1),
+  HSL_FLAG = (1 << 2)
+} ColorFlag;
 
 // #########################################################
 // Prototypes
@@ -209,8 +223,9 @@ void printRGBValues(rgb *rgbColor);
  * @brief Prints color hex and rgb values
  * 
  * @param col {color} : color to print
+ * @param flags {ColorFlags} : color bit flag
  */
-void printColor(color *col);
+void printColor(color *col, ColorFlag flags);
 
 /**
  * @brief Prints HSL values
