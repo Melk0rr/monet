@@ -6,17 +6,6 @@
 // #########################################################
 // Struct definitions
 
-/**
- * @brief Bool type struct
- * 
- */
-typedef enum
-{
-  false,
-  true
-} bool;
-
-#endif
 
 // #########################################################
 // Prototypes
@@ -100,3 +89,5 @@ void printBlue(const char *text);
  * @return regmatch_t : pmatch array
  */
 int regCheck(const char *myStr, const char *pattern, size_t nmatch, regmatch_t pmatch[]);
+
+#endif
