@@ -329,11 +329,11 @@ void printHSLValues(hsl *hslTuple)
 void printColor(color *col, ColorFlag flags)
 {
   if (flags & HEX_FLAG)
-    printf("\nColor Hex: #%06x\n", col->hexValue->code);
+    printf("#%06x\n", col->hexValue->code);
 
   if (flags & RGB_FLAG)
-    printf("Color RGB: (%d,%d,%d)\n", col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
+    printf("(%d,%d,%d)\n", col->rgbValues->red, col->rgbValues->green, col->rgbValues->blue);
   
   if (flags & HSL_FLAG)
-    printf("Color HSL: (%f,%f,%f)\n", col->hslValues->hue, col->hslValues->saturation, col->hslValues->lightness);
+    printf("(%f,%f,%f)\n", col->hslValues->hue, col->hslValues->saturation, col->hslValues->lightness);
 }
