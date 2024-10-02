@@ -3,6 +3,8 @@
 
 #include "utils.h"
 
+#include <stdbool.h>
+
 // #########################################################
 // Struct definitions
 
