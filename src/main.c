@@ -114,12 +114,11 @@ int main(int argc, char *argv[]) {
       break;
       
     case 2:
-      saturated = changeColorSaturation(colors->begin->nodeColor, saturation);
-      printf("#%06x", saturated->hexValue->code);
+      changeDListColorSaturation(colors, saturation);
       break;
     
     default:
-      printColor(colors->begin->nodeColor, HEX_FLAG | RGB_FLAG | HSL_FLAG);
+      printColorDList(colors);
   }
 
   deleteColorDList(colors);
