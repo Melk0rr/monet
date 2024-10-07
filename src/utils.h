@@ -85,6 +85,14 @@ void printYellow(const char *test);
 void printBlue(const char *text);
 
 /**
+ * @brief Tries to allocate memory with given size and check if memory was allocated
+ * 
+ * @param size {size_t} : size of memory to alloc
+ * @return void* 
+ */
+static void *xmalloc(size_t size);
+
+/**
  * @brief Check if provided string matches the given regex pattern
  * 
  * @param myStr {char *} : string to check
