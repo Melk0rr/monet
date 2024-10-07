@@ -1,9 +1,5 @@
 #include "utils.h"
 
-#include <regex.h>
-#include <stdio.h>
-#include <assert.h>
-
 // Define ANSI escape codes for colors
 #define RESET       "\x1b[0m"
 #define BLACK       "\x1b[30m"
@@ -16,40 +12,51 @@
 #define WHITE       "\x1b[37m"
 #define BOLD        "\x1b[1m"
 
-// Prints text in a certain color : see zenithar.h
+// Prints text in a certain color : see utils.h
 void printInColor(const char *text, const char *color)
 {
   printf("%s%s%s\n", color, text, RESET);
 }
 
-// Prints text in white : see zenithar.h
+// Prints text in white : see utils.h
 void printWhite(const char *text)
 {
   printInColor(text, WHITE);
 }
 
-// Prints text in red : see zenithar.h
+// Prints text in red : see utils.h
 void printRed(const char *text)
 {
   printInColor(text, RED);
 }
 
-// Prints text in green : see zenithar.h
+// Prints text in green : see utils.h
 void printGreen(const char *text)
 {
   printInColor(text, GREEN);
 }
 
-// Prints text in yellow : see zenithar.h
+// Prints text in yellow : see utils.h
 void printYellow(const char *text)
 {
   printInColor(text, YELLOW);
 }
 
-// Prints text in blue : see zenithar.h
+// Prints text in blue : see utils.h
 void printBlue(const char *text)
 {
   printInColor(text, BLUE);
+}
+
+// Function to check malloc : see utils.h
+static void *xmalloc(size_t size)
+{
+  void *p = malloc(size);
+
+  if (p == NULL)
+    abort();
+
+  return p;
 }
 
 // Function to check if a given string matches provided regex pattern

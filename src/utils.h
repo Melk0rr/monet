@@ -1,7 +1,10 @@
 #ifndef __UTILS__H__
 #define __UTILS__H__
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <regex.h>
+#include <assert.h>
 
 // #########################################################
 // Struct definitions
