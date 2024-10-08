@@ -10,4 +10,5 @@ A simple C utility to manipulate colors
 ## TODO
 - More advanced C concepts
   - bit flags
-  - 
+  - lookup table
+  - char arrays
