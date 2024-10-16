@@ -49,7 +49,7 @@ void printBlue(const char *text)
 }
 
 // Function to check malloc : see utils.h
-static void *xmalloc(size_t size)
+void *xmalloc(size_t size)
 {
   void *p = malloc(size);
 

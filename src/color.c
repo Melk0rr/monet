@@ -18,7 +18,7 @@ hex *newHexColor(const unsigned char *hexStr)
   int hexCheck = regCheck((char *)hexStr, HEXREG, nmatch, pmatch);
 
   if (hexCheck == 0) {
-    hex *newColor = malloc(sizeof(*newColor));
+    hex *newColor = xmalloc(sizeof(*newColor));
 
     char buf[256] = {0};
     strncpy(buf, (char *)hexStr + pmatch[1].rm_so,
@@ -35,7 +35,7 @@ hex *newHexColor(const unsigned char *hexStr)
 // A function to create a new RGB color : see color.h
 rgb *newRGBColor(const unsigned int r, const unsigned int g,
                  const unsigned int b) {
-  rgb *newColor = malloc(sizeof(*newColor));
+  rgb *newColor = xmalloc(sizeof(*newColor));
 
   if (!checkRGBValue(r) || !checkRGBValue(g) || !checkRGBValue(b)) {
     fprintf(stderr, "newRGBColor::Invalid RGB value provided : %d,%d,%d\n", r, g, b);
@@ -77,7 +77,7 @@ rgb *newRGBColorFromStr(const char *rgbStr)
 // Function to create a new color : see color.h
 color *newColor()
 {
-  color *c = malloc(sizeof(*c));
+  color *c = xmalloc(sizeof(*c));
 
   if (c != NULL) {
     c->hexValue = NULL;
@@ -126,7 +126,7 @@ color *newColorFromStr(const char *colStr)
 // A function to create a new HSL tuple : see color.h
 hsl *newHSLTuple(const float h, const float s, const float l)
 {
-  hsl *newHSL = malloc(sizeof(*newHSL));
+  hsl *newHSL = xmalloc(sizeof(*newHSL));
 
   if (!checkHueValue(h) || !checkSLValue(s) || !checkSLValue(l)) {
     fprintf(stderr, "newHSLTuple::Invalid HSL value provided: %f,%f,%f\n", h, s, l);

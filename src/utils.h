@@ -90,7 +90,7 @@ void printBlue(const char *text);
  * @param size {size_t} : size of memory to alloc
  * @return void* 
  */
-static void *xmalloc(size_t size);
+void *xmalloc(size_t size);
 
 /**
  * @brief Check if provided string matches the given regex pattern

@@ -1,12 +1,13 @@
-#include "color_dlist.h"
+#include "utils.h"
 #include "color.h"
+#include "color_dlist.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 // Function to create an empty color dlist : see color_dlist.h
 ColorDList *newColorDList() {
-  ColorDList *cli = malloc(sizeof(*cli));
+  ColorDList *cli = xmalloc(sizeof(*cli));
 
   if (cli != NULL) {
     cli->length = 0;
@@ -28,7 +29,7 @@ bool isColorDListEmpty(ColorDList *cli) {
 
 // Function to push a new color at the end of an color dlist : see color_dlist.h
 ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
-  ColorDListNode *colNode = malloc(sizeof(*colNode));
+  ColorDListNode *colNode = xmalloc(sizeof(*colNode));
 
   if (colNode == NULL) {
     fprintf(stderr, "pushBackColorDList::Memory allocation failed for new "
@@ -41,7 +42,7 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
   colNode->next = NULL;
 
   if (isColorDListEmpty(cli)) {
-    cli = malloc(sizeof(*cli));
+    cli = xmalloc(sizeof(*cli));
 
     if (cli == NULL) {
       fprintf(stderr, "pushBackColorDList::Memory allocation failed for empty "
