@@ -122,5 +122,6 @@ int main(int argc, char *argv[]) {
   }
 
   deleteColorDList(colors);
-  return 0;
+  
+  return EXIT_SUCCESS;
 }
