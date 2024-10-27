@@ -7,19 +7,31 @@
 #include "color.h"
 #include "color_dlist.h"
 
-static int verbose_flag = 0;
+void mappedDistance(ColorDList *cli)
+{
+  if (cli->length < 2)
+  {
+    fprintf(stderr, "Not enough colors provided !");
+  }
+  
+  if (cli->begin != NULL && cli->begin->next != NULL)
+  {
+    color *c1 = cli->begin->nodeColor;
+    color *c2 = cli->begin->next->nodeColor;
+
+    float dist = getBasicColorDistance(c1, c2);
+    printf("%f", dist);
+  }
+}
 
 int main(int argc, char *argv[]) {
-  int opt;
-  int optionIndex = 0;
 
-  static struct option longOptions[] = {
-      {"color", required_argument, 0, 'c'},
-      {"distance", no_argument, 0, 'd'},
-      {"help", no_argument, 0, 'H'},
-      {"info", optional_argument, 0, 'i'},
-      {"saturate", required_argument, 0, 's'},
-      {"verbose", no_argument, &verbose_flag, 'v'},
+  static const struct option longOptions[] = {
+    {"color", required_argument, 0, 'c'},
+    {"distance", no_argument, 0, 'd'},
+    {"help", no_argument, 0, 'H'},
+    {"info", optional_argument, 0, 'i'},
+    {"saturate", required_argument, 0, 's'},
   };
 
   ColorDList *colors = newColorDList();
@@ -27,30 +39,18 @@ int main(int argc, char *argv[]) {
 
   // Program modes
   enum mode { INFO, DISTANCE, SATURATE } m;
+  
+  int opt;
+  int optionIndex = 0;
 
   // Handling options
   while ((opt = getopt_long(argc, argv, "c:s:dvHi", longOptions,
-                            &optionIndex)) != -1) 
+    &optionIndex)) != -1) 
   {
-    color *c;
-
     switch (opt) {
-      case 0:
-        if (longOptions[optionIndex].flag != 0)
-          break;
-
-        printf("Option %s", longOptions[optionIndex].name);
-
-        if (optarg)
-          printf(" with arg %s", optarg);
-
-        printf("\n");
-        break;
-
       case 'c':
         // New color
-        c = newColorFromStr(optarg);
-        colors = pushBackColorDList(colors, c);
+        colors = pushBackColorDList(colors, newColorFromStr(optarg));
 
         break;
 
@@ -76,9 +76,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  if (verbose_flag)
-    puts("verbose flag is set");
-
   if (optind < argc) {
     printf("non-option ARGV-elements: ");
     while (optind < argc)
@@ -93,23 +90,17 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
+  struct commandinfo
+  {
+    char *(*func)(ColorDList *cli, float sat);
+  };
+
+  static const struct commandinfo commandinfoLookup[] = {};
+
   // Mode actions
-  color *saturated;
   switch (m) {
     case 1:
-      if (colors->length < 2)
-      {
-        fprintf(stderr, "Not enough colors provided !");
-      }
       
-      if (colors->begin != NULL && colors->begin->next != NULL)
-      {
-        color *c1 = colors->begin->nodeColor;
-        color *c2 = colors->begin->next->nodeColor;
-
-        float dist = getBasicColorDistance(c1, c2);
-        printf("%f", dist);
-      }
 
       break;
       
