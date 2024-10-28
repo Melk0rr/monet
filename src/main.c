@@ -1,4 +1,3 @@
-#include <getopt.h>
 #include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,6 +5,7 @@
 
 #include "color.h"
 #include "color_dlist.h"
+#include "parse.h"
 
 void mappedDistance(ColorDList *cli)
 {
@@ -26,19 +26,11 @@ void mappedDistance(ColorDList *cli)
 
 int main(int argc, char *argv[]) {
 
-  static const struct option longOptions[] = {
-    {"color", required_argument, 0, 'c'},
-    {"distance", no_argument, 0, 'd'},
-    {"help", no_argument, 0, 'H'},
-    {"info", optional_argument, 0, 'i'},
-    {"saturate", required_argument, 0, 's'},
-  };
-
   ColorDList *colors = newColorDList();
   float saturation;
 
   // Program modes
-  enum mode { INFO, DISTANCE, SATURATE } m;
+  commandmode m;
   
   int opt;
   int optionIndex = 0;
@@ -51,22 +43,22 @@ int main(int argc, char *argv[]) {
       case 'c':
         // New color
         colors = pushBackColorDList(colors, newColorFromStr(optarg));
-
         break;
 
       case 'd':
-        m = DISTANCE;
+        m = CMD_DISTANCE;
         break;
 
       case 'i':
-        m = INFO;
+        m = CMD_INFO;
         break;
 
       case 'H':
+        m = CMD_HELP;
         break;
 
       case 's':
-        m = SATURATE;
+        m = CMD_SATURATE;
         saturation = atof(optarg);
         
         break;
@@ -84,33 +76,19 @@ int main(int argc, char *argv[]) {
     putchar('\n');
   }
   
-  if (isColorDListEmpty(colors))
-  {
-    fprintf(stderr, "No color provided");
-    exit(1);
-  }
-
-  struct commandinfo
-  {
-    char *(*func)(ColorDList *cli, float sat);
-  };
-
-  static const struct commandinfo commandinfoLookup[] = {};
-
-  // Mode actions
-  switch (m) {
-    case 1:
+  // // Mode actions
+  // switch (m) {
+  //   case 1:
+  //     mappedDistance(colors);
+  //     break;
       
-
-      break;
-      
-    case 2:
-      changeDListColorSaturation(colors, saturation);
-      break;
+  //   case 2:
+  //     changeDListColorSaturation(colors, saturation);
+  //     break;
     
-    default:
-      printColorDList(colors);
-  }
+  //   default:
+  //     printColorDList(colors);
+  // }
 
   deleteColorDList(colors);
   
