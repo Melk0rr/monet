@@ -58,7 +58,8 @@ typedef struct color
  * @brief Color bit flag
  * 
  */
-typedef enum {
+typedef enum
+{
   HEX_FLAG = (1 << 0),
   RGB_FLAG = (1 << 1),
   HSL_FLAG = (1 << 2)
