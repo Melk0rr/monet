@@ -16,6 +16,12 @@ union commanddata
   float sat;
 };
 
+struct optwithdesc
+{
+  struct option;
+  char *desc;
+};
+
 const struct option longOptions[] = {
   {"color", required_argument, 0, 'c'},
   {"distance", no_argument, 0, 'd'},
