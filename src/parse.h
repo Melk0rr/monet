@@ -61,14 +61,16 @@ void cmdHelp(ColorDList *cli, union commanddata cmdata);
  */
 void cmdInfo(ColorDList *cli, union commanddata cmdata);
 
-const struct commandinfo modeLookup[] = {
+void parseMode(ColorDList *cli, commandmode mode, union commanddata cmd);
+
+static const struct commandinfo modeLookup[] = {
   [CMD_HELP]     = {cmdHelp},
   [CMD_INFO]     = {cmdInfo},
   [CMD_DISTANCE] = {cmdDistance},
   [CMD_SATURATE] = {cmdSaturate}
 };
 
-const struct option longOptions[] = {
+static const struct option longOptions[] = {
   {"color", required_argument, 0, 'c'},
   {"distance", no_argument, 0, 'd'},
   {"help", no_argument, 0, 'H'},
