@@ -1,13 +1,8 @@
 
 #include "parse.h"
-#include "color_dlist.h"
 #include <bits/getopt_ext.h>
 
-struct commandinfo
-{
-  void (*func)(ColorDList *cli, union commanddata cmdata);
-};
-
+// Handle --distance command argument : see parse.h
 void cmdDistance(ColorDList *cli, union commanddata cmdata)
 {
   if (cli->length < 2)
@@ -25,11 +20,13 @@ void cmdDistance(ColorDList *cli, union commanddata cmdata)
   }
 }
 
+// Handle --saturate command argument : see parse.h
 void cmdSaturate(ColorDList *cli, union commanddata cmdata)
 {
   changeDListColorSaturation(cli, cmdata.sat);
 }
 
+// Handle --help command argument : see parse.h
 void cmdHelp(ColorDList *cli, union commanddata cmdata)
 {
   printf("Monet, color manipulation\nUsage: monet (--color [--saturate])...\n\n");
@@ -41,15 +38,7 @@ void cmdHelp(ColorDList *cli, union commanddata cmdata)
   }
 }
 
-
-// static const struct commandinfo commandinfoLookup[] = {};
-static const struct commandinfo modeLookup[] = {
-  [CMD_HELP]     = {},
-  [CMD_INFO]     = {},
-  [CMD_DISTANCE] = {cmdDistance},
-  [CMD_SATURATE] = {cmdSaturate}
-};
-
+// Parse command mode : see parse.h
 void parseMode(ColorDList *cli, commandmode mode, union commanddata cmd)
 {
   if (isColorDListEmpty(cli))
