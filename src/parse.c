@@ -38,6 +38,12 @@ void cmdHelp(ColorDList *cli, union commanddata cmdata)
   }
 }
 
+// Handle --info command argument : see parse.h
+void cmdInfo(ColorDList *cli, union commanddata cmdata)
+{
+  printColorDList(cli);
+}
+
 // Parse command mode : see parse.h
 void parseMode(ColorDList *cli, commandmode mode, union commanddata cmd)
 {
@@ -47,5 +53,6 @@ void parseMode(ColorDList *cli, commandmode mode, union commanddata cmd)
     exit(1);
   }
 
-
+  const struct commandinfo *modeCommandInfo = &modeLookup[mode];
+  modeCommandInfo->func(cli, cmd);
 }
