@@ -1,28 +1,11 @@
 #include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "color.h"
 #include "color_dlist.h"
 #include "parse.h"
 
-void mappedDistance(ColorDList *cli)
-{
-  if (cli->length < 2)
-  {
-    fprintf(stderr, "Not enough colors provided !");
-  }
-  
-  if (cli->begin != NULL && cli->begin->next != NULL)
-  {
-    color *c1 = cli->begin->nodeColor;
-    color *c2 = cli->begin->next->nodeColor;
-
-    float dist = getBasicColorDistance(c1, c2);
-    printf("%f", dist);
-  }
-}
 
 int main(int argc, char *argv[]) {
 
@@ -31,6 +14,7 @@ int main(int argc, char *argv[]) {
 
   // Program modes
   commandmode m;
+  union commanddata cmdata;
   
   int opt;
   int optionIndex = 0;
@@ -59,7 +43,7 @@ int main(int argc, char *argv[]) {
 
       case 's':
         m = CMD_SATURATE;
-        saturation = atof(optarg);
+        cmdata.sat = atof(optarg);
         
         break;
 
@@ -75,21 +59,8 @@ int main(int argc, char *argv[]) {
 
     putchar('\n');
   }
-  
-  // // Mode actions
-  // switch (m) {
-  //   case 1:
-  //     mappedDistance(colors);
-  //     break;
-      
-  //   case 2:
-  //     changeDListColorSaturation(colors, saturation);
-  //     break;
-    
-  //   default:
-  //     printColorDList(colors);
-  // }
 
+  parseMode(colors, m, cmdata);
   deleteColorDList(colors);
   
   return EXIT_SUCCESS;
