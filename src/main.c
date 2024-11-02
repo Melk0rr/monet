@@ -57,6 +57,8 @@ int main(int argc, char *argv[]) {
   }
 
   parseMode(colors, cmdata);
+
+  free(cmdata);
   deleteColorDList(colors);
   
   return EXIT_SUCCESS;
