@@ -5,17 +5,13 @@
 #include "color.h"
 #include "color_dlist.h"
 #include "parse.h"
-
+#include "utils.h"
 
 int main(int argc, char *argv[]) {
 
   ColorDList *colors = newColorDList();
-  float saturation;
+  struct commanddata *cmdata = xmalloc(sizeof *cmdata);
 
-  // Program modes
-  commandmode m;
-  union commanddata cmdata;
-  
   int opt;
   int optionIndex = 0;
 
@@ -30,20 +26,20 @@ int main(int argc, char *argv[]) {
         break;
 
       case 'd':
-        m = CMD_DISTANCE;
+        cmdata->mode = CMD_DISTANCE;
         break;
 
       case 'i':
-        m = CMD_INFO;
+        cmdata->mode = CMD_INFO;
         break;
 
       case 'H':
-        m = CMD_HELP;
+        cmdata->mode = CMD_HELP;
         break;
 
       case 's':
-        m = CMD_SATURATE;
-        cmdata.sat = atof(optarg);
+        cmdata->mode = CMD_SATURATE;
+        cmdata->value.sat = atof(optarg);
         
         break;
 
@@ -53,14 +49,14 @@ int main(int argc, char *argv[]) {
   }
 
   if (optind < argc) {
-    printf("non-option ARGV-elements: ");
+    printf("Non-option ARGV-elements: ");
     while (optind < argc)
       printf("%s ", argv[optind++]);
 
     putchar('\n');
   }
 
-  parseMode(colors, m, cmdata);
+  parseMode(colors, cmdata);
   deleteColorDList(colors);
   
   return EXIT_SUCCESS;
