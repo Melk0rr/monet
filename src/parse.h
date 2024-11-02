@@ -5,17 +5,21 @@
 
 #include "color_dlist.h"
 
-typedef enum
+enum commandmode
 {
   CMD_HELP,
   CMD_INFO,
   CMD_DISTANCE,
   CMD_SATURATE
-} commandmode;
+};
 
-union commanddata
+struct commanddata
 {
-  float sat;
+  enum commandmode mode;
+  union
+  {
+    float sat;
+  } value;
 };
 
 struct optwithdesc
@@ -26,7 +30,7 @@ struct optwithdesc
 
 struct commandinfo
 {
-  void (*func)(ColorDList *cli, union commanddata cmdata);
+  void (*func)(ColorDList *cli, struct commanddata *cmdata);
 };
 
 /**
@@ -35,7 +39,7 @@ struct commandinfo
  * @param cli {ColorDList} : color dlist to potentially use
  * @param cmdata {union commanddata} : potential data to pass
  */
-void cmdDistance(ColorDList *cli, union commanddata cmdata);
+void cmdDistance(ColorDList *cli, struct commanddata *cmdata);
 
 /**
  * @brief Handle --saturate command argument
@@ -43,7 +47,7 @@ void cmdDistance(ColorDList *cli, union commanddata cmdata);
  * @param cli {ColorDList} : color dlist to potentially use
  * @param cmdata {union commanddata} : potential data to pass
  */
-void cmdSaturate(ColorDList *cli, union commanddata cmdata);
+void cmdSaturate(ColorDList *cli, struct commanddata *cmdata);
 
 /**
  * @brief Handle --help command argument
@@ -51,7 +55,7 @@ void cmdSaturate(ColorDList *cli, union commanddata cmdata);
  * @param cli {ColorDList} : color dlist to potentially use
  * @param cmdata {union commanddata} : potential data to pass
  */
-void cmdHelp(ColorDList *cli, union commanddata cmdata);
+void cmdHelp(ColorDList *cli, struct commanddata *cmdata);
 
 /**
  * @brief Handle --info command argument
@@ -59,9 +63,9 @@ void cmdHelp(ColorDList *cli, union commanddata cmdata);
  * @param cli {ColorDList} : color dlist to potentially use
  * @param cmdata {union commanddata} : potential data to pass
  */
-void cmdInfo(ColorDList *cli, union commanddata cmdata);
+void cmdInfo(ColorDList *cli, struct commanddata *cmdata);
 
-void parseMode(ColorDList *cli, commandmode mode, union commanddata cmd);
+void parseMode(ColorDList *cli, struct commanddata *cmdata);
 
 static const struct commandinfo modeLookup[] = {
   [CMD_HELP]     = {cmdHelp},
