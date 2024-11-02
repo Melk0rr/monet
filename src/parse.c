@@ -34,7 +34,7 @@ void cmdHelp(ColorDList *cli, struct commanddata *cmdata)
 
   for (int i = 0; i < (sizeof(longOptions) / sizeof(struct option)); i++)
   {
-    printf("-%c --%s", longOptions[i].val, longOptions[i].name);
+    printf("-%c --%s\n", longOptions[i].val, longOptions[i].name);
   }
 }
 
@@ -47,7 +47,7 @@ void cmdInfo(ColorDList *cli, struct commanddata *cmdata)
 // Parse command mode : see parse.h
 void parseMode(ColorDList *cli, struct commanddata *cmdata)
 {
-  if (isColorDListEmpty(cli))
+  if (cmdata->mode != CMD_HELP && isColorDListEmpty(cli))
   {
     fprintf(stderr, "No color provided");
     exit(1);
