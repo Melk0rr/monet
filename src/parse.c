@@ -1,6 +1,6 @@
+// INFO: Parsing operations to handle options and more
 
 #include "parse.h"
-#include <bits/getopt_ext.h>
 
 // Handle --distance command argument : see parse.h
 void cmdDistance(ColorDList *cli, struct commanddata *cmdata)
@@ -9,7 +9,7 @@ void cmdDistance(ColorDList *cli, struct commanddata *cmdata)
   {
     fprintf(stderr, "Not enough colors provided !");
   }
-  
+
   if (cli->begin != NULL && cli->begin->next != NULL)
   {
     color *c1 = cli->begin->nodeColor;
@@ -29,7 +29,8 @@ void cmdSaturate(ColorDList *cli, struct commanddata *cmdata)
 // Handle --help command argument : see parse.h
 void cmdHelp(ColorDList *cli, struct commanddata *cmdata)
 {
-  printf("Monet, color manipulation\nUsage: monet (--color [--saturate])...\n\n");
+  printf(
+      "Monet, color manipulation\nUsage: monet (--color [--saturate])...\n\n");
   printf("Options:\n");
 
   for (int i = 0; i < (sizeof(longOptions) / sizeof(struct option)); i++)

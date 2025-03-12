@@ -1,15 +1,19 @@
-#include "utils.h"
-#include "color.h"
-#include "color_dlist.h"
+// INFO: DList to handle colors
 
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "color.h"
+#include "color_dlist.h"
+#include "utils.h"
+
 // Function to create an empty color dlist : see color_dlist.h
-ColorDList *newColorDList() {
+ColorDList *newColorDList()
+{
   ColorDList *cli = xmalloc(sizeof(*cli));
 
-  if (cli != NULL) {
+  if (cli != NULL)
+  {
     cli->length = 0;
     cli->begin = NULL;
     cli->end = NULL;
@@ -19,8 +23,10 @@ ColorDList *newColorDList() {
 }
 
 // Function to check if the given color dlist is empty : see color_dlist.h
-bool isColorDListEmpty(ColorDList *cli) {
-  if (cli == NULL || cli->end == NULL) {
+bool isColorDListEmpty(ColorDList *cli)
+{
+  if (cli == NULL || cli->end == NULL)
+  {
     return true;
   }
 
@@ -28,10 +34,12 @@ bool isColorDListEmpty(ColorDList *cli) {
 }
 
 // Function to push a new color at the end of an color dlist : see color_dlist.h
-ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
+ColorDList *pushBackColorDList(ColorDList *cli, color *col)
+{
   ColorDListNode *colNode = xmalloc(sizeof(*colNode));
 
-  if (colNode == NULL) {
+  if (colNode == NULL)
+  {
     fprintf(stderr, "pushBackColorDList::Memory allocation failed for new "
                     "ColorDListNode !");
     exit(1);
@@ -41,10 +49,12 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
   colNode->prev = NULL;
   colNode->next = NULL;
 
-  if (isColorDListEmpty(cli)) {
+  if (isColorDListEmpty(cli))
+  {
     cli = xmalloc(sizeof(*cli));
 
-    if (cli == NULL) {
+    if (cli == NULL)
+    {
       fprintf(stderr, "pushBackColorDList::Memory allocation failed for empty "
                       "ColorDList !");
       exit(1);
@@ -54,7 +64,8 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
     cli->begin = colNode;
     cli->end = colNode;
 
-  } else {
+  } else
+  {
     // If dlist is not empty : Last dlist element next pointer now points to new
     // node
     cli->end->next = colNode;
@@ -72,14 +83,17 @@ ColorDList *pushBackColorDList(ColorDList *cli, color *col) {
 }
 
 // Function to pop an color node from given list end : see color_dlist.h
-ColorDList *popBackColorDList(ColorDList *cli) {
-  if (isColorDListEmpty(cli)) {
+ColorDList *popBackColorDList(ColorDList *cli)
+{
+  if (isColorDListEmpty(cli))
+  {
     printf("popBackColorDList::List is empty. Nothing to pop.\n");
     return newColorDList();
   }
 
   // Check if the list contains only one element
-  if (cli->begin == cli->end) {
+  if (cli->begin == cli->end)
+  {
     free(cli);
     cli = NULL;
 
@@ -114,16 +128,16 @@ color *findColorByIndex(ColorDList *cli, int index)
     printf("findColorByIndex::List is empty, nothing to return");
     return NULL;
   }
-  
+
   ColorDListNode *temp = cli->begin;
   int i = 0;
-  
+
   while (temp != NULL && i <= index)
   {
     if (i == index)
     {
       return temp->nodeColor;
-      
+
     } else
     {
       temp = temp->next;
@@ -140,12 +154,12 @@ void changeDListColorSaturation(ColorDList *cli, float saturation)
   if (!isColorDListEmpty(cli))
   {
     ColorDListNode *temp = cli->begin;
-    
-    while(temp != NULL)    
+
+    while (temp != NULL)
     {
       color *saturated = changeColorSaturation(temp->nodeColor, saturation);
       temp->nodeColor = saturated;
-      
+
       printColor(saturated, HEX_FLAG);
       temp = temp->next;
     }
@@ -158,19 +172,20 @@ void printColorDList(ColorDList *cli)
   if (!isColorDListEmpty(cli))
   {
     ColorDListNode *temp = cli->begin;
-    
-    while(temp != NULL)
+
+    while (temp != NULL)
     {
       printColor(temp->nodeColor, HEX_FLAG | RGB_FLAG | HSL_FLAG);
       printf("\n");
-      
+
       temp = temp->next;
     }
   }
 }
 
 // Function to clear an color dlist content : see color_dlist.h
-ColorDList *clearColorDlist(ColorDList *cli) {
+ColorDList *clearColorDlist(ColorDList *cli)
+{
   while (!isColorDListEmpty(cli))
     cli = popBackColorDList(cli);
 
@@ -178,7 +193,8 @@ ColorDList *clearColorDlist(ColorDList *cli) {
 }
 
 // Function to delete a color dlist : see color_dlist.h
-void deleteColorDList(ColorDList *cli) {
+void deleteColorDList(ColorDList *cli)
+{
   cli = clearColorDlist(cli);
   free(cli);
 }

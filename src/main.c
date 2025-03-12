@@ -1,3 +1,5 @@
+// INFO: Entry point
+
 #include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,8 +9,8 @@
 #include "parse.h"
 #include "utils.h"
 
-int main(int argc, char *argv[]) {
-
+int main(int argc, char *argv[])
+{
   ColorDList *colors = newColorDList();
   struct commanddata *cmdata = xmalloc(sizeof *cmdata);
 
@@ -17,38 +19,40 @@ int main(int argc, char *argv[]) {
 
   // Handling options
   while ((opt = getopt_long(argc, argv, "c:s:dvHi", longOptions,
-    &optionIndex)) != -1) 
+                            &optionIndex)) != -1)
   {
-    switch (opt) {
-      case 'c':
-        // New color
-        colors = pushBackColorDList(colors, newColorFromStr(optarg));
-        break;
+    switch (opt)
+    {
+    case 'c':
+      // New color
+      colors = pushBackColorDList(colors, newColorFromStr(optarg));
+      break;
 
-      case 'd':
-        cmdata->mode = CMD_DISTANCE;
-        break;
+    case 'd':
+      cmdata->mode = CMD_DISTANCE;
+      break;
 
-      case 'i':
-        cmdata->mode = CMD_INFO;
-        break;
+    case 'i':
+      cmdata->mode = CMD_INFO;
+      break;
 
-      case 'H':
-        cmdata->mode = CMD_HELP;
-        break;
+    case 'H':
+      cmdata->mode = CMD_HELP;
+      break;
 
-      case 's':
-        cmdata->mode = CMD_SATURATE;
-        cmdata->value.sat = atof(optarg);
-        
-        break;
+    case 's':
+      cmdata->mode = CMD_SATURATE;
+      cmdata->value.sat = atof(optarg);
 
-      default:
-        abort();
+      break;
+
+    default:
+      abort();
     }
   }
 
-  if (optind < argc) {
+  if (optind < argc)
+  {
     printf("Non-option ARGV-elements: ");
     while (optind < argc)
       printf("%s ", argv[optind++]);
@@ -60,6 +64,6 @@ int main(int argc, char *argv[]) {
 
   free(cmdata);
   deleteColorDList(colors);
-  
+
   return EXIT_SUCCESS;
 }

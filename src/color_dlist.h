@@ -3,8 +3,8 @@
 
 #include "color.h"
 
-// #########################################################
-// Color DList and node struct definition
+// ***************************************************
+// INFO: Color DList and node struct definition
 
 /**
  * @brief Colors doubled chained list node
@@ -28,8 +28,8 @@ typedef struct ColorDList
   struct ColorDListNode *end;
 } ColorDList;
 
-// #########################################################
-// Prototypes
+// ***************************************************
+// INFO: Prototypes
 
 /**
  * @brief Creates an empty color dlist

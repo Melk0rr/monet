@@ -6,10 +6,12 @@
 #include <stdbool.h>
 
 // #########################################################
-// Struct definitions
-
+// Useful regexes
 static const char HEXREG[] = "#?([0-9a-fA-F]{6})";
 static const char RGBREG[] = "([0-9]{1,3}), ?([0-9]{1,3}), ?([0-9]{1,3})";
+
+// #########################################################
+// Struct definitions
 
 /**
  * @brief A structure to handle hex colors
@@ -221,18 +223,18 @@ void printHexValue(hex *hexColor);
 void printRGBValues(rgb *rgbColor);
 
 /**
+ * @brief Prints HSL values
+ * 
+ * @param hslTuple {hsl} : hsl to print
+ */
+void printHSLValues(hsl *hslTuple);
+
+/**
  * @brief Prints color hex and rgb values
  * 
  * @param col {color} : color to print
  * @param flags {ColorFlags} : color bit flag
  */
 void printColor(color *col, ColorFlag flags);
-
-/**
- * @brief Prints HSL values
- * 
- * @param hslTuple {hsl} : hsl to print
- */
-void printHSLValues(hsl *hslTuple);
 
 #endif
